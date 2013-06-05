@@ -46,6 +46,14 @@
 				<section>
 					<p>Background in Open Source, Content Management, Mobile</p>
 				</section>
+
+				<section>
+					<p>Talking today about what I learned so far...<br /></p>
+					<p class="fragment">Fork me!<br />
+					If you found this talk useful, or spotted mistakes:<br />
+					<a href="https://github.com/savs/CQCon_2013_CQ_Maven_Methods">github.com/savs/CQCon_2013_CQ_Maven_Methods</a></p>
+				</section>
+
 			</section>
 
 			<!-- DEFINE THE PROBLEM -->
@@ -169,13 +177,81 @@
 				</section>
 			</section>
 
-			<!-- BASIC EXAMPLE END-TO-END -->
+			<!-- MAVEN DETAILS -->
 			<section>
 				<section>
 					<h2>Building from Scratch</h2>
 				</section>
 				<section>
-					<h2>Init project from archetype</h2>
+					<img border="0" width="800" src="images/inception-3403.jpg" alt="Inception"/>
+				</section>
+				<section>
+					<h2>Archetypes</h2>
+					<p><strong>archetype</strong> |ˈɑːkɪtʌɪp|<br />
+						<small>noun</small><br />
+						a very typical example of a certain person or thing: <em>he was the archetype of the old-style football club chairman.</em><br />
+						• an original which has been imitated; a prototype: <em>an instrument which was the archetype of the early flute.</em></p>
+				</section>
+				<section>
+					<h2>Maven Archetypes</h2>
+					<p>A prototype upon which others are copied, patterned, or emulated.</p>
+				</section>
+				<section>
+					<h2>Maven Archetypes</h2>
+					<ul>
+						<li>Simple content package</li>
+						<li>Simple content package with 3rd-party artifacts</li>
+						<li>Multi-module application with classes and tests</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Initialising a project from archetypes</h2>
+					<p>General format is:</p>
+					<p><code>
+						mvn archetype:generate -DarchetypeGroupId=FOO<br />
+						-DarchetypeArtifactId=BAR<br />
+						-DarchetypeVersion=1.0.0<br />
+						-DarchetypeRepository=BAZ
+					</code></p>
+					<ul>
+						<li>DarchetypeGroupId: the name of the archetype group</li>
+						<li>archetypeArtifactId: the name of the archetype</li>
+						<li>archetypeRepository: the repository from settings.xml</li>
+					</ul>
+					<p><br /><small>See also: http://maven.apache.org/guides/introduction/introduction-to-archetypes.html</small></p>
+				</section>
+				<section>
+					<h2>Simple content package</h2>
+					<p>From the fine manual:</p>
+					<blockquote>&ldquo;Creates a maven project that is suitable for installing resources for a simple CQ application. The folder structure is that used below the /apps folder of the CQ repository. The POM defines commands for packaging the resources that you place in the folders and installing the packages on the CQ server.&rdquo;</blockquote>
+				</section>
+				<section>
+					<h2>Invoking the simple content package</h2>
+					<p><code>mvn archetype:generate -DarchetypeGroupId=com.day.jcr.vault -DarchetypeArtifactId=simple-content-package-archetype -DarchetypeVersion=1.0.0 -DarchetypeRepository=adobe-public-releases</code></p>
+					<!-- FIXME insert video -->
+					<ul>
+						<li>groupId: Like a package name, e.g. com.yourcompany.projectname</li>
+						<li>artifactId: name of the jar without the version, e.g. projectname</li>
+						<li>version: accept the default</li>
+						<li>package: accept the default (groupId)</li>
+						<li>appsFolderName: name of /apps/projectname, e.g. projectname</li>
+						<li>artifactName: FIXME</li>
+						<li>packageGroup: FIXME sidekick?</li>
+					</ul>
+					<p><br /><small>See also: http://maven.apache.org/guides/mini/guide-naming-conventions.html</small></p>
+				</section>
+			</section>
+
+			<!-- GIT DETAILS -->
+			<section>
+				<section>
+					<h2>Why Git?</h2>
+					<ul>
+						<li>Local safety net</li>
+						<li>"The internet is my backup"</li>
+						<li>It's good to share</li>
+						<li>Enlightened self-interest</li>
+					</ul>
 				</section>
 				<section>
 					<h2>Get it in Git #1</h2>
@@ -186,10 +262,11 @@
 					<h2>Get it in Git #2</h2>
 					<p>Edit <code>.gitignore</code>, for example:</p>
 					<pre><code data-trim contenteditable>
-.classpath
-.project
-.settings/
-target/
+						.classpath
+						.project
+						.vlt/
+						.settings/
+						target/
 					</code></pre>
 				</section>
 				<section>
@@ -219,9 +296,14 @@ target/
 				</section>
 			</section>
 
+			<!-- BASIC EXAMPLE END-TO-END -->
+			<section>
+				<h2>Putting it all together</h2>
+			</section>
 
+<!--
 			<section data-markdown="talk.md" data-separator="^\n\n\n" data-vertical="^\n\n"></section>
-
+-->
 			</div>
 		</div>
 		<script src="lib/js/head.min.js"></script>
