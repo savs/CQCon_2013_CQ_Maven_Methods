@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>CQCon: CQ Maven Methods</title>
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">	
+		<!--Add support for earlier versions of Internet Explorer -->
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		<!-- Wrap the entire slide show in a div using the "reveal" class. -->
+		<div class="reveal">
+			<!-- Wrap all slides in a single "slides" class -->
+			<div class="slides">
+
+			<!-- INTRODUCTION -->
+			<section>
+				<h1>CQ Maven Methods</h1>
+				<h2>CQCon 2013</h2>
+			</section>
+
+			<section>
+				<section>
+					<h2>Hello World</h2>
+					<p>I'm Andrew.</p>
+					<p><a href="mailto:asavory@adobe.com">asavory@adobe.com</a></p>
+					<p><a href="http://twitter.com/savs">@savs</a>
+					<p><a href="http://www.planetcq.org/">http://www.planetcq.org/</a></p>
+					<aside class="notes">
+						Please email me if you'd like to be added to planet cq.
+					</aside>
+				</section>
+
+				<section>
+					<p>Joined Adobe in November 2012</p>
+				</section>
+
+				<section>
+					<p>CQ Newbie</p>
+				</section>
+
+				<section>
+					<p>Background in Open Source, Content Management, Mobile</p>
+				</section>
+			</section>
+
+			<!-- DEFINE THE PROBLEM -->
+			<section>
+				<section>
+
+					<h2>Let's build a CQ site</h2>
+
+					<p class="fragment">... uh, where to begin?</p>
+				</section>
+				<section>
+					<h3>Method 1</h3>
+
+					<p>Enthusiastically rush in, use <em>CRXDE Lite</em></p>
+				</section>
+				<section>
+					<h3>Method 2</h3>
+
+					<p>I'm a guru, I use <em>Eclipse</em> and <em>CRXDE</em></p>
+				</section>
+				<section>
+					<h3>Method 3</h3>
+					<p><strong>I'm</strong> a ninja, I use <em>emacs</em> and <em>vlt</em></p>
+				</section>
+				<section>
+					<h3>Method 4</h3>
+					<p><strong><em>I'm</em></strong> a guru ninja, I use <em>vi</em> and <em>curl</em></p>
+				</section>
+				<section>
+					<h3>Method 5</h3>
+					<p><em>Insert magnetising a hard disk joke</em></p>
+				</section>
+				<section>
+					<h3>But what about ...</h3>
+					<p class="fragment">reproducible builds?</p>
+					<p class="fragment">using revision control?</p>
+					<p class="fragment">collaborating with others?</p>
+					<p class="fragment">deploying to production?</p>
+					<aside class="notes">
+					</aside>
+				</section>
+			</section>
+
+			<!-- PROBLEM IN MORE DETAIL -->
+			<section>
+				<section>
+					<h2>Why isn't it easier to build a CQ site?</h2>
+					<p class="fragment highlight-red">Laborious project inception</p>
+					<p class="fragment highlight-red">No two projects alike</p>
+					<p class="fragment highlight-red">Don't know project layout</p>
+					<p class="fragment highlight-red">Don't know project dependencies</p>
+					<p class="fragment highlight-red">Hard for others to reproduce</p>
+					<p class="fragment highlight-red">Hard to test</p>
+					<p class="fragment highlight-red">Lengthy RTFM or worse (no FM)</p>
+					<p class="fragment highlight-red">Documentation over convention</p>
+				</section>
+				<section>
+					<h2>CQ SUCKS</h2>
+				</section>
+				<section>
+					<h2>$PRODUCT SUCKS</h2>
+				</section>
+				<section>
+					<h2>YOUR METHODOLOGY SUCKS</h2>
+				</section>
+			</section>
+
+			<!-- DEFINE THE SOLUTION -->
+			<section>
+				<section>
+					<h2>So how do we fix this?</h2>
+					<p class="fragment">Maven</p>
+					<p class="fragment">Git<br /><small>(or Subversion, or CVS ... ymmv)</small></p>
+					<p class="fragment">Best Practices</p>
+				</section>
+				<section>
+					<h2>Maven</h2>
+					<blockquote cite="http://maven.apache.org/">
+						&ldquo;Maven is a software project management and comprehension tool. Based on the concept of a project object model (POM), Maven can manage a project's build, reporting and documentation from a central piece of information.&rdquo;
+					</blockquote>
+				</section>
+				<section>
+					<h2>Git</h2>
+					<blockquote cite="http://git-scm.org/">
+						&ldquo;Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
+						&rdquo;
+					</blockquote>
+					<blockquote class="fragment"><em><small>Version control is a system that records changes to a file or set of files over time so that you can recall specific versions later.</small></em></blockquote>
+				</section>
+				<section>
+					<h2>Best Practices</h2>
+					<blockquote cite="http://en.wikipedia.org/wiki/Best_practice">
+						&ldquo;A best practice is a method or technique that has consistently shown results superior to those achieved with other means.&rdquo;</blockquote>
+					<blockquote class="fragment highlight-green"><small>In addition, a "best" practice can <strong>evolve</strong> to become better as improvements are discovered.</small></blockquote>
+				</section>
+				<section>
+					<h2>What do we want?</h2>
+					<p class="fragment">Minimal customisation</p>
+					<p class="fragment">Standardised way to <em>create</em> a project</p>
+					<p class="fragment">Standardised way to <em>build</em> a project</p>
+					<p class="fragment">Standardised way to <em>deploy</em> a project</p>
+					<p class="fragment">Standardised way to <em>test</em> a project</p>
+					<p class="fragment">Standardised way to <em>share</em> a project</p>
+				</section>
+				<section>
+					<p>Success criteria:</p>
+					<h2>It's EASY to build a CQ site!</h2>
+				</section>
+			</section>
+
+			<!-- GETTIING STARTED -->
+			<section>
+				<section>
+					<h2>Getting started</h2>
+					<p>Install Maven: http://maven.apache.org/guides/getting-started/</p>
+					<p>Install Git: http://git-scm.com/book/en/Getting-Started-Installing-Git</p>
+				</section>
+				<section>
+					<h2>Configuration</h2>
+					<p>FIXME</p>
+				</section>
+			</section>
+
+			<!-- BASIC EXAMPLE END-TO-END -->
+			<section>
+				<section>
+					<h2>Building from Scratch</h2>
+				</section>
+				<section>
+					<h2>Init project from archetype</h2>
+				</section>
+				<section>
+					<h2>Get it in Git #1</h2>
+					<p><code>cd projectname</code></p>
+					<p><code>git init</code></p>
+				</section>
+				<section>
+					<h2>Get it in Git #2</h2>
+					<p>Edit <code>.gitignore</code>, for example:</p>
+					<pre><code data-trim contenteditable>
+.classpath
+.project
+.settings/
+target/
+					</code></pre>
+				</section>
+				<section>
+					<h2>Get it in Git #3</h2>
+					<p><code>git add</code></p>
+					<p><code>git commit -m 'Initial project version'</code></p>
+				</section>
+				<section>
+					<h2>Get it in Git #4</h2>
+					<p>Optional: get it in github</p>
+					<code>git add remote master</code>
+				</section>
+				<section>
+					<h2>Install project</h2>
+				</section>
+				<section>
+					<h2>Commit project</h2>
+				</section>
+				<section>
+					<h2>Test project</h2>
+					<p>For guru ninjas and people that don't like being bugged by their colleagues.</p>
+					<p>Prove it works on different platform. From scratch.</p>
+				</section>
+			</section>
+
+
+			<section data-markdown="talk.md" data-separator="^\n\n\n" data-vertical="^\n\n"></section>
+
+			</div>
+		</div>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+			// Required, even if empty.
+			Reveal.initialize({
+				// Display controls in the bottom right corner
+				controls: true,
+				// Display a presentation progress bar
+				progress: true,
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					// Cross-browser shim that fully implements classList - https://github.com/eligrey/classList.js/
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+
+					// Interpret Markdown in <section> elements
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+
+					// Syntax highlight for <code> elements
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+
+					// Zoom in and out with Alt+click
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+
+					// Speaker notes
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+
+				]
+
+			});
+		</script>
+	</body>
+</html>
