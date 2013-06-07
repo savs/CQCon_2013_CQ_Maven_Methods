@@ -49,8 +49,13 @@
 
 				<section>
 					<p>Talking today about what I learned so far...<br /></p>
-					<p class="fragment">Fork me!<br />
-					If you found this talk useful, or spotted mistakes:<br />
+					<aside class="notes">
+						It's likely I haven't learnt everything ... so ...
+					</aside>
+				</section>
+				<section>
+					<h2>Fork me!</h2>
+					<p>If you found this talk useful, or spotted mistakes:<br />
 					<a href="https://github.com/savs/CQCon_2013_CQ_Maven_Methods">github.com/savs/CQCon_2013_CQ_Maven_Methods</a></p>
 				</section>
 
@@ -172,8 +177,66 @@
 					<p>Install Git: http://git-scm.com/book/en/Getting-Started-Installing-Git</p>
 				</section>
 				<section>
-					<h2>Configuration</h2>
-					<p>FIXME</p>
+					<h2>Configuring Maven</h2>
+					<ul>
+						<li>Maven has a settings file that defines things like repositories where plugins can be downloaded (typically <code>~/.m2/settings.xml</code>).</li>
+						<li>We need to add a <em>profile</em> to point to the Adobe repository.</li>
+						<li>We then specify this repository when we use the archetype plugin.</li>
+					</ul>
+					<p><br /><small>See also: <a href="http://dev.day.com/docs/en/cq/current/core/how_to/how_to_use_the_vlttool/vlt-mavenplugin.html#Obtaining the Content Package Maven Plugin">Obtaining the Content Package Maven Plugin</a></small></p>
+				</section>
+				<section>
+					<h2>Configuring Maven</h2>
+<pre><small><code data-trim contenteditable>
+&lt;profile&gt;
+ &lt;id&gt;adobe-public&lt;/id&gt;
+    &lt;activation&gt;
+         &lt;activeByDefault&gt;false&lt;/activeByDefault&gt;
+    &lt;/activation&gt;
+    &lt;properties&gt;
+         &lt;releaseRepository-Id&gt;adobe-public-releases&lt;/releaseRepository-Id&gt;
+         &lt;releaseRepository-Name&gt;Adobe Public Releases&lt;/releaseRepository-Name&gt;
+         &lt;releaseRepository-URL&gt;http://repo.adobe.com/nexus/content/groups/public&lt;/releaseRepository-URL&gt;
+    &lt;/properties&gt;
+    &lt;repositories&gt;
+         &lt;repository&gt;
+             &lt;id&gt;adobe-public-releases&lt;/id&gt;
+             &lt;name&gt;Adobe Basel Public Repository&lt;/name&gt;
+             &lt;url&gt;http://repo.adobe.com/nexus/content/groups/public&lt;/url&gt;
+             &lt;releases&gt;
+                 &lt;enabled&gt;true&lt;/enabled&gt;
+                 &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;
+             &lt;/releases&gt;
+             &lt;snapshots&gt;
+                 &lt;enabled&gt;false&lt;/enabled&gt;
+             &lt;/snapshots&gt;
+         &lt;/repository&gt;
+     &lt;/repositories&gt;
+     &lt;pluginRepositories&gt;
+         &lt;pluginRepository&gt;
+             &lt;id&gt;adobe-public-releases&lt;/id&gt;
+             &lt;name&gt;Adobe Basel Public Repository&lt;/name&gt;
+             &lt;url&gt;http://repo.adobe.com/nexus/content/groups/public&lt;/url&gt;
+             &lt;releases&gt;
+                 &lt;enabled&gt;true&lt;/enabled&gt;
+                 &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;
+             &lt;/releases&gt;
+             &lt;snapshots&gt;
+                 &lt;enabled&gt;false&lt;/enabled&gt;
+             &lt;/snapshots&gt;
+         &lt;/pluginRepository&gt;
+     &lt;/pluginRepositories&gt;
+&lt;/profile&gt;
+</code></small></pre>
+				</section>
+				<section>
+					<h2>Configuring Maven</h2>
+					<p>Enable the repository:</p>
+<pre><code data-trim contenteditable>
+&lt;activeProfiles&gt;
+    &lt;activeProfile&gt;adobe-public&lt;/activeProfile&gt;
+&lt;/activeProfiles&gt;
+</code></pre>
 				</section>
 			</section>
 
@@ -197,50 +260,143 @@
 					<p>A prototype upon which others are copied, patterned, or emulated.</p>
 				</section>
 				<section>
-					<h2>Maven Archetypes</h2>
+					<h2>What CQ archetypes are there?</h2>
+					<p>Some common Maven archetypes for CQ include:</p>
 					<ul>
-						<li>Simple content package</li>
-						<li>Simple content package with 3rd-party artifacts</li>
-						<li>Multi-module application with classes and tests</li>
+						<li>Adobe Simple content package</li>
+						<li>Adobe Simple content package with 3rd-party artifacts</li>
+						<li>Adobe Multi-module application with classes and tests</li>
+						<li>CQ Blueprints project multi-module</li>
 					</ul>
 				</section>
 				<section>
-					<h2>Initialising a project from archetypes</h2>
-					<p>General format is:</p>
-					<p><code>
-						mvn archetype:generate -DarchetypeGroupId=FOO<br />
-						-DarchetypeArtifactId=BAR<br />
-						-DarchetypeVersion=1.0.0<br />
-						-DarchetypeRepository=BAZ
-					</code></p>
-					<ul>
-						<li>DarchetypeGroupId: the name of the archetype group</li>
-						<li>archetypeArtifactId: the name of the archetype</li>
-						<li>archetypeRepository: the repository from settings.xml</li>
-					</ul>
-					<p><br /><small>See also: http://maven.apache.org/guides/introduction/introduction-to-archetypes.html</small></p>
+					<h2>How to use an archetype</h2>
+					<p>General format of the maven archetype command is:</p>
+<pre><code>
+mvn archetype:generate
+	-DarchetypeGroupId=foo
+	-DarchetypeArtifactId=bar
+	-DarchetypeVersion=1.0.0
+	-DarchetypeRepository=baz
+</code></pre>
+					<p><br /><small>See also: <a href="http://maven.apache.org/guides/introduction/introduction-to-archetypes.html">Maven: Introduction to Archetypes</a></small></p>
 				</section>
+
 				<section>
-					<h2>Simple content package</h2>
+					<h2>Archetypes Arguments</h2>
+<pre><code>
+mvn archetype:generate
+	-DarchetypeGroupId=foo
+	-DarchetypeArtifactId=bar
+	-DarchetypeVersion=1.0.0
+	-DarchetypeRepository=baz
+</code></pre>
+
+					<ul>
+						<li><strong>archetypeGroupId</strong>: identifies the archetype project uniquely across all projects</li>
+						<li><strong>archetypeArtifactId</strong>: the name of the archetype jar without a version number</li>
+						<li><strong>archetypeRepository</strong>: where to get the archetype from (based on pluginRepository in settings.xml)</li>
+					</ul>
+					<p><br /><small>See also: <a href="http://maven.apache.org/guides/mini/guide-naming-conventions.html">Maven: Naming conventions</a></small></p>
+				</section>
+
+				<section>
+					<h2>Simple content package Archetype</h2>
 					<p>From the fine manual:</p>
 					<blockquote>&ldquo;Creates a maven project that is suitable for installing resources for a simple CQ application. The folder structure is that used below the /apps folder of the CQ repository. The POM defines commands for packaging the resources that you place in the folders and installing the packages on the CQ server.&rdquo;</blockquote>
 				</section>
+
 				<section>
-					<h2>Invoking the simple content package</h2>
-					<p><code>mvn archetype:generate -DarchetypeGroupId=com.day.jcr.vault -DarchetypeArtifactId=simple-content-package-archetype -DarchetypeVersion=1.0.0 -DarchetypeRepository=adobe-public-releases</code></p>
-					<!-- FIXME insert video -->
+					<h2>Using the Simple content package Archetype</h2>
+<pre><code>
+mvn archetype:generate
+	-DarchetypeGroupId=com.day.jcr.vault
+	-DarchetypeArtifactId=simple-content-package-archetype
+	-DarchetypeVersion=1.0.1
+	-DarchetypeRepository=adobe-public-releases
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Simple content package Arguments</h2>
 					<ul>
-						<li>groupId: Like a package name, e.g. com.yourcompany.projectname</li>
-						<li>artifactId: name of the jar without the version, e.g. projectname</li>
+						<li><strong>archetypeGroupId</strong>: <span class="fragment highlight-green">com.day.jcr.vault</span><br />identifies the archetype project uniquely across all projects</li>
+						<li><strong>archetypeArtifactId</strong>: <span class="fragment highlight-green">simple-content-package-archetype</span><br />the name of the archetype jar without a version number</li>
+						<li><strong>archetypeRepository</strong>: <span class="fragment highlight-green">adobe-public-releases</span><br />where to get the archetype from (based on pluginRepository in settings.xml)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Simple content package in action</h2>
+					<video data-autoplay src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"></video>
+					<!-- FIXME insert video -->
+				</section>
+				<section>
+					<h2>Simple content package configuration</h2>
+					<ul>
+						<li>groupId: Like a package name, e.g. com.yourcompany.myproject</li>
+						<li>artifactId: name of the jar without the version, e.g. myproject</li>
 						<li>version: accept the default</li>
-						<li>package: accept the default (groupId)</li>
-						<li>appsFolderName: name of /apps/projectname, e.g. projectname</li>
+						<li>package: not used in simple-content-package FIXME</li>
+						<li>appsFolderName: name of /apps/myproject, e.g. myproject</li>
 						<li>artifactName: FIXME</li>
 						<li>packageGroup: FIXME sidekick?</li>
 					</ul>
-					<p><br /><small>See also: http://maven.apache.org/guides/mini/guide-naming-conventions.html</small></p>
+					<p><br /><small>See also: <a href="http://maven.apache.org/guides/mini/guide-naming-conventions.html">Maven: Naming conventions</a></small></p>
+				</section>
+
+				<section>
+					<h2>Simple content package output</h2>
+<pre>
+${artifactId}
+   |- pom.xml
+   |- README.txt
+   |- src
+      |- main
+         |- content
+             |- jcr_root
+                 |- apps
+                     |- ${appsFolderName}
+                            |- components 
+                               |- .content.xml
+                            |- config
+                            |- install
+             |- META-INF
+                 |- vault
+                     |- config.xml
+                     |- filter.xml
+                     |- nodetypes.cnd
+                     |- properties.xml
+                     |- definition
+                        |- .content.xml
+</pre>
+				</section>
+				<section>
+					<h2>Simple content package output</h2>
+					<!-- FIXME: more detail, or skip? -->
+					<ul>
+						<li>POM file</li>
+							<ul>
+								<li>Instructions for compiling, creating bundles, deploying to CQ in packages</li>
+							</ul>
+						<li>FileVault configuration files</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Working with your project</h2>
+					<p>What now?</p>
+					<ul>
+						<li>Build a content package: <code>mvn install</code></li>
+						<li>Build and deploy: <code>mvn -PautoInstallPackage install</code></li>
+					</ul>
+					<aside class="notes">
+						<p>BUT we're not going to do this ... yet.<br/>
+						We've got the project, before we break it, let's save it.</p>
+					</aside>
 				</section>
 			</section>
+
+
 
 			<!-- GIT DETAILS -->
 			<section>
@@ -254,34 +410,39 @@
 					</ul>
 				</section>
 				<section>
-					<h2>Get it in Git #1</h2>
-					<p><code>cd projectname</code></p>
-					<p><code>git init</code></p>
+					<h2>Git project setup</h2>
+<pre><code>
+cd projectname
+git init
+</code></pre>
 				</section>
 				<section>
-					<h2>Get it in Git #2</h2>
+					<h2>Git Ignore</h2>
 					<p>Edit <code>.gitignore</code>, for example:</p>
-					<pre><code data-trim contenteditable>
-						.classpath
-						.project
-						.vlt/
-						.settings/
-						target/
-					</code></pre>
+<pre><code data-trim contenteditable>
+.classpath
+.project
+.vlt/
+.settings/
+target/
+</code></pre>
 				</section>
 				<section>
-					<h2>Get it in Git #3</h2>
-					<p><code>git add</code></p>
-					<p><code>git commit -m 'Initial project version'</code></p>
+					<h2>Get it in Git</h2>
+<pre><code>
+git add *
+git commit -m 'Initial project version'
+</code></pre>
 				</section>
 				<section>
-					<h2>Get it in Git #4</h2>
-					<p>Optional: get it in <a href="http://github.com/">github</a></p>
+					<h2>Get it in Github (optional)</h2>
 					<ul>
 						<li>Create a project on github</li>
 						<li><code>git remote add origin git@github.com:YOURUSERNAME/YOURPROJECTNAME.git</code></li>
 						<li><code>git pull origin master</code></li>
 						<li><code>git push origin master</code></li>
+					</ul>
+					<p><br /><small>See also: <a href="http://github.com/">github</a></small></p>
 				</section>
 				<section>
 					<h2>Install project</h2>
