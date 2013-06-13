@@ -243,11 +243,10 @@
 			<!-- MAVEN DETAILS -->
 			<section>
 				<section>
-					<h2>Building from Scratch</h2>
+					<h2>Building New Projects</h2>
+					<!-- FIXME something about reinventing wheels -->
 				</section>
-				<section>
-					<img border="0" width="800" src="images/inception-3403.jpg" alt="Inception"/>
-				</section>
+
 				<section>
 					<h2>Archetypes</h2>
 					<p><strong>archetype</strong> |ˈɑːkɪtʌɪp|<br />
@@ -261,12 +260,23 @@
 				</section>
 				<section>
 					<h2>What CQ archetypes are there?</h2>
-					<p>Some common Maven archetypes for CQ include:</p>
 					<ul>
-						<li>Adobe Simple content package</li>
-						<li>Adobe Simple content package with 3rd-party artifacts</li>
-						<li>Adobe Multi-module application with classes and tests</li>
-						<li>CQ Blueprints project multi-module</li>
+						<li class="fragment highlight-green"><em>simple-content-package</em></li>
+						<ul>
+							<li>Generates a simple content package</li>
+						</ul>
+						<li class="fragment highlight-green"><em>simple-content-package-with-embedded</em></li>
+						<ul>
+							<li>Same as simple content package but downloads and includes an artifact from a public maven repository</li>
+						</ul>
+						<li class="fragment highlight-green"><em>multimodule-content-package</em></li>
+						<ul>
+							<li>Includes the folder structure for developing a CQ application.</li>
+						</ul>
+						<li class="fragment highlight-green"><em>cqblueprints multi-module</em></li>
+						<ul>
+							<li>Third-party archetype encapsulating best practices for working with e.g. OSGi bundles, taglibs, and CQ content</li>
+						</ul>
 					</ul>
 				</section>
 				<section>
@@ -318,7 +328,7 @@ mvn archetype:generate
 				</section>
 
 				<section>
-					<h2>Simple content package Arguments</h2>
+					<h2>Archetype Arguments</h2>
 					<ul>
 						<li><strong>archetypeGroupId</strong>: <span class="fragment highlight-green">com.day.jcr.vault</span><br />identifies the archetype project uniquely across all projects</li>
 						<li><strong>archetypeArtifactId</strong>: <span class="fragment highlight-green">simple-content-package-archetype</span><br />the name of the archetype jar without a version number</li>
@@ -328,11 +338,12 @@ mvn archetype:generate
 
 				<section>
 					<h2>Simple content package in action</h2>
-					<video data-autoplay src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"></video>
+					<iframe width="853" height="480" src="http://www.youtube.com/embed/52UDO7thbvM?rel=0" frameborder="0" allowfullscreen></iframe>
+					<!-- <video data-autoplay src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"></video> -->
 					<!-- FIXME insert video -->
 				</section>
 				<section>
-					<h2>Simple content package configuration</h2>
+					<h2>Simple content package parameters</h2>
 					<ul>
 						<li>groupId: Like a package name, e.g. com.yourcompany.myproject</li>
 						<li>artifactId: name of the jar without the version, e.g. myproject</li>
@@ -344,38 +355,12 @@ mvn archetype:generate
 					</ul>
 					<p><br /><small>See also: <a href="http://maven.apache.org/guides/mini/guide-naming-conventions.html">Maven: Naming conventions</a></small></p>
 				</section>
-
-				<section>
-					<h2>Simple content package output</h2>
-<pre>
-${artifactId}
-   |- pom.xml
-   |- README.txt
-   |- src
-      |- main
-         |- content
-             |- jcr_root
-                 |- apps
-                     |- ${appsFolderName}
-                            |- components 
-                               |- .content.xml
-                            |- config
-                            |- install
-             |- META-INF
-                 |- vault
-                     |- config.xml
-                     |- filter.xml
-                     |- nodetypes.cnd
-                     |- properties.xml
-                     |- definition
-                        |- .content.xml
-</pre>
-				</section>
 				<section>
 					<h2>Simple content package output</h2>
 					<!-- FIXME: more detail, or skip? -->
 					<ul>
-						<li>POM file</li>
+						<li>Template directories</li>
+						<li><code>pom.xml</code> file</li>
 							<ul>
 								<li>Instructions for compiling, creating bundles, deploying to CQ in packages</li>
 							</ul>
@@ -383,20 +368,146 @@ ${artifactId}
 					</ul>
 				</section>
 				<section>
-					<h2>Working with your project</h2>
-					<p>What now?</p>
+					<h2>Simple content package (with embedded artifact) output</h2>
 					<ul>
-						<li>Build a content package: <code>mvn install</code></li>
-						<li>Build and deploy: <code>mvn -PautoInstallPackage install</code></li>
+						<li>Everything from simple content package</li>
+						<li>Adds an artifact to the pom.xml<br />
+							This allows third-party dependencies to be easily included in your deployed application.</li>
 					</ul>
-					<aside class="notes">
-						<p>BUT we're not going to do this ... yet.<br/>
-						We've got the project, before we break it, let's save it.</p>
-					</aside>
+					<p>FIXME example</p>
+					<!-- FIXME are we sure about this? -->
+				</section>
+				<section>
+					<h2>Simple content package (with embedded artifact) pom.xml</h2>
+<pre><code data-trim contenteditable>
+&lt;embeddeds&gt;
+    &lt;embedded&gt;
+        &lt;groupId&gt;org.apache.sling&lt;/groupId&gt;
+        &lt;artifactId&gt;org.apache.sling.testing.samples.sampletests&lt;/artifactId&gt;
+        &lt;addFilter&gt;true&lt;/addFilter&gt;
+        &lt;target&gt;/apps/yourproject/install&lt;/target&gt;
+    &lt;/embedded&gt;
+&lt;/embeddeds&gt;
+
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.sling&lt;/groupId&gt;
+        &lt;artifactId&gt;org.apache.sling.testing.samples.sampletests&lt;/artifactId&gt;
+        &lt;version&gt;1.0.6&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+				</section>
+				<section>
+					<h2>Using the multimodule content package Archetype</h2>
+<pre><code>
+mvn archetype:generate
+	-DarchetypeGroupId=com.day.jcr.vault
+	-DarchetypeArtifactId=simple-content-package-archetype
+	-DarchetypeVersion=1.0.1
+	-DarchetypeRepository=adobe-public-releases
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Multimodule content package output</h2>
+<pre>
+${artifactId}
+   |- pom.xml
+   |- bundle
+      |- pom.xml
+      |- src
+         |- main
+            |- java
+               |- ${groupId}
+                  |- SimpleDSComponent.java
+         |- test
+            |- java
+               |- ${groupId}
+                  |- SimpleUnitTest.java
+   |- content
+      |- pom.xml
+      |- src
+         |- main
+            |- content
+               |- jcr_root
+                  |- apps
+                     |- ${appsFolderName} 
+                            |- config
+                            |- install
+                  |- META-INF
+                      |- vault
+                         |- config.xml
+                         |- filter.xml
+                         |- nodetypes.cnd
+                         |- properties.xml
+                         |- definition
+                            |- .content.xml
+</pre>
+
+				</section>
+
+
+				<section>
+					<h2>Using the cqblueprints multi-module Archetype</h2>
+					<ul>
+						<li>Add the CQ Blueprints Maven Repository to Maven's <code>settings.xml</code></li>
+						<li>Use <code>archetype:generate</code> with the following arguments:</li>
+						<ul>
+							<li>archetypeGroupID: <em>com.cqblueprints.archetypes</em></li>
+							<li>archetypeArtifactId: <em>multi-module</em></li>
+							<li>archetypeVersion: <em>1.0.5</em></li>
+							<li>archetypeRepository: <em>cqblueprints.plugins.releases</em></li>
+						</ul>
+					</ul>
+					<p><br /><small>See also: <a href="http://cqblueprints.com/xwiki/bin/view/Blue+Prints/Connecting+to+the+CQ+Blueprints+Repository">Connecting to the CQ Blueprints Repository</a> and <a href="http://cqblueprints.com/xwiki/bin/view/Blue+Prints/The+CQ+Project+Maven+Archetype">The CQ Project Maven Archetype</a></small></p>
+				</section>
+				<section>
+					<h2>Using the multimodule content package Archetype</h2>
+<pre><code>
+mvn -P cqblueprints archetype:generate
+	-DarchetypeGroupId=com.cqblueprints.archetypes
+	-DarchetypeArtifactId=multi-module
+	-DarchetypeVersion=1.0.5
+	-DarchetypeRepository=cqblueprints.plugins.releases
+</code></pre>
+				</section>
+
+				<section>
+					<h2>cqblueprints multi-module output</h2>
+<pre>
+${artifactId}
+   |- README
+   |- pom.xml
+   |- ${artifactId}-all
+      |- pom.xml
+   |- ${artifactId}-config
+   |- ${artifactId}-content
+   |- ${artifactId}-services
+   |- ${artifactId}-taglib
+   |- ${artifactId}-view
+</pre>
+				</section>
+				<!-- FIXME drill-down into directories -->
+				<section>
+					<h2>Why use cqblueprints multi-module?</h2>
+
+					<blockquote cite="http://www.headwire.com/">
+						&ldquo;The things we wanted to consider with our archetype is to address concerns of larger teams&rdquo;
+					</blockquote>
+				</section>
+				<section>
+					<h2>CQBlueprints multimodule design</h2>
+					<ul>
+						<li>${artifactId}-view subproject: <em>where css/html/js developers (frontend) do their work</em></li>
+						<li>${artifactId}-taglib, -services: <em>where java developers (backend) do their work</em></li>
+						<li>${artifactId}-config: <em>where the configuration (runmode configs stored)</em></li>
+						<li>${artifactId}-content: <em>how we get initial content and site structure onto the developer's box quickly</em></li>
+						<li>${artifactId}-all: <em>how we hand off builds to the next environment</em></li>
+					</ul>
 				</section>
 			</section>
-
-
 
 			<!-- GIT DETAILS -->
 			<section>
@@ -457,11 +568,34 @@ git commit -m 'Initial project version'
 				</section>
 			</section>
 
+			<!-- Practical examples -->
+			<section>
+				<section>
+					<h2>Working with your project</h2>
+					<p>What now?</p>
+					<ul>
+						<li>Build a content package: <code>mvn install</code></li>
+						<li>Build and deploy: <code>mvn -PautoInstallPackage install</code></li>
+					</ul>
+					<aside class="notes">
+						<p>BUT we're not going to do this ... yet.<br/>
+						We've got the project, before we break it, let's save it.</p>
+					</aside>
+				</section>
+			</section>
+
 			<!-- BASIC EXAMPLE END-TO-END -->
 			<section>
 				<h2>Putting it all together</h2>
 			</section>
 
+			<section>
+				<h2>Credits</h2>
+
+				<ul>
+					<li><a href="http://thenounproject.com/noun/light-bulb/#icon-No7582" target="_blank">Light Bulb</a> designed by <a href="http://thenounproject.com/Shane_kenna" target="_blank">Shane David Kenna</a> from The Noun Project</li>
+				</ul>
+			</section>
 <!--
 			<section data-markdown="talk.md" data-separator="^\n\n\n" data-vertical="^\n\n"></section>
 -->
