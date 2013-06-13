@@ -9,6 +9,11 @@
 		<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
+		<style type="text/css">
+			.maven .reveal .state-background {
+				background: rgba( 179, 234, 245, 0.6 );
+			}
+		</style>
 	</head>
 
 	<body>
@@ -103,17 +108,17 @@
 			</section>
 
 			<!-- PROBLEM IN MORE DETAIL -->
-			<section>
+			<section data-state="alert">
 				<section>
 					<h2>Why isn't it easier to build a CQ site?</h2>
-					<p class="fragment highlight-red">Laborious project inception</p>
-					<p class="fragment highlight-red">No two projects alike</p>
-					<p class="fragment highlight-red">Don't know project layout</p>
-					<p class="fragment highlight-red">Don't know project dependencies</p>
-					<p class="fragment highlight-red">Hard for others to reproduce</p>
-					<p class="fragment highlight-red">Hard to test</p>
-					<p class="fragment highlight-red">Lengthy RTFM or worse (no FM)</p>
-					<p class="fragment highlight-red">Documentation over convention</p>
+					<p>Laborious project inception</p>
+					<p>No two projects alike</p>
+					<p>Don't know project layout</p>
+					<p>Don't know project dependencies</p>
+					<p>Hard for others to reproduce</p>
+					<p>Hard to test</p>
+					<p>Lengthy RTFM or worse (no FM)</p>
+					<p>Documentation over convention</p>
 				</section>
 				<section>
 					<h2>CQ SUCKS</h2>
@@ -123,11 +128,12 @@
 				</section>
 				<section>
 					<h2>YOUR METHODOLOGY SUCKS</h2>
+					<p>(sorry)</p>
 				</section>
 			</section>
 
 			<!-- DEFINE THE SOLUTION -->
-			<section>
+			<section data-state="soothe">
 				<section>
 					<h2>So how do we fix this?</h2>
 					<p class="fragment">Maven</p>
@@ -170,7 +176,7 @@
 			</section>
 
 			<!-- GETTIING STARTED -->
-			<section>
+			<section data-state="soothe">
 				<section>
 					<h2>Getting started</h2>
 					<p>Install Maven: http://maven.apache.org/guides/getting-started/</p>
@@ -187,8 +193,7 @@
 				</section>
 				<section>
 					<h2>Configuring Maven</h2>
-<pre><small><code data-trim contenteditable>
-&lt;profile&gt;
+<pre><small><code>&lt;profile&gt;
  &lt;id&gt;adobe-public&lt;/id&gt;
     &lt;activation&gt;
          &lt;activeByDefault&gt;false&lt;/activeByDefault&gt;
@@ -232,8 +237,7 @@
 				<section>
 					<h2>Configuring Maven</h2>
 					<p>Enable the repository:</p>
-<pre><code data-trim contenteditable>
-&lt;activeProfiles&gt;
+<pre><code>&lt;activeProfiles&gt;
     &lt;activeProfile&gt;adobe-public&lt;/activeProfile&gt;
 &lt;/activeProfiles&gt;
 </code></pre>
@@ -241,9 +245,9 @@
 			</section>
 
 			<!-- MAVEN DETAILS -->
-			<section>
+			<section data-state="maven">
 				<section>
-					<h2>Building New Projects</h2>
+					<h2>FIX #1: MAVEN</h2>
 					<!-- FIXME something about reinventing wheels -->
 				</section>
 
@@ -282,8 +286,7 @@
 				<section>
 					<h2>How to use an archetype</h2>
 					<p>General format of the maven archetype command is:</p>
-<pre><code>
-mvn archetype:generate
+<pre><code>mvn archetype:generate
 	-DarchetypeGroupId=foo
 	-DarchetypeArtifactId=bar
 	-DarchetypeVersion=1.0.0
@@ -294,8 +297,7 @@ mvn archetype:generate
 
 				<section>
 					<h2>Archetypes Arguments</h2>
-<pre><code>
-mvn archetype:generate
+<pre><code>mvn archetype:generate
 	-DarchetypeGroupId=foo
 	-DarchetypeArtifactId=bar
 	-DarchetypeVersion=1.0.0
@@ -318,8 +320,7 @@ mvn archetype:generate
 
 				<section>
 					<h2>Using the Simple content package Archetype</h2>
-<pre><code>
-mvn archetype:generate
+<pre><code>mvn archetype:generate
 	-DarchetypeGroupId=com.day.jcr.vault
 	-DarchetypeArtifactId=simple-content-package-archetype
 	-DarchetypeVersion=1.0.1
@@ -379,8 +380,7 @@ mvn archetype:generate
 				</section>
 				<section>
 					<h2>Simple content package (with embedded artifact) pom.xml</h2>
-<pre><code data-trim contenteditable>
-&lt;embeddeds&gt;
+<pre><code>&lt;embeddeds&gt;
     &lt;embedded&gt;
         &lt;groupId&gt;org.apache.sling&lt;/groupId&gt;
         &lt;artifactId&gt;org.apache.sling.testing.samples.sampletests&lt;/artifactId&gt;
@@ -401,8 +401,7 @@ mvn archetype:generate
 				</section>
 				<section>
 					<h2>Using the multimodule content package Archetype</h2>
-<pre><code>
-mvn archetype:generate
+<pre><code>mvn archetype:generate
 	-DarchetypeGroupId=com.day.jcr.vault
 	-DarchetypeArtifactId=simple-content-package-archetype
 	-DarchetypeVersion=1.0.1
@@ -412,8 +411,7 @@ mvn archetype:generate
 
 				<section>
 					<h2>Multimodule content package output</h2>
-<pre>
-${artifactId}
+<pre>${artifactId}
    |- pom.xml
    |- bundle
       |- pom.xml
@@ -465,8 +463,7 @@ ${artifactId}
 				</section>
 				<section>
 					<h2>Using the multimodule content package Archetype</h2>
-<pre><code>
-mvn -P cqblueprints archetype:generate
+<pre><code>mvn -P cqblueprints archetype:generate
 	-DarchetypeGroupId=com.cqblueprints.archetypes
 	-DarchetypeArtifactId=multi-module
 	-DarchetypeVersion=1.0.5
@@ -476,8 +473,7 @@ mvn -P cqblueprints archetype:generate
 
 				<section>
 					<h2>cqblueprints multi-module output</h2>
-<pre>
-${artifactId}
+<pre>${artifactId}
    |- README
    |- pom.xml
    |- ${artifactId}-all
@@ -510,7 +506,11 @@ ${artifactId}
 			</section>
 
 			<!-- GIT DETAILS -->
-			<section>
+			<section data-state="mint">
+				<section>
+					<h2>FIX #2: GIT</h2>
+					<!-- FIXME something about reinventing wheels -->
+				</section>
 				<section>
 					<h2>Why Git?</h2>
 					<ul>
@@ -522,16 +522,14 @@ ${artifactId}
 				</section>
 				<section>
 					<h2>Git project setup</h2>
-<pre><code>
-cd projectname
+<pre><code>cd projectname
 git init
 </code></pre>
 				</section>
 				<section>
 					<h2>Git Ignore</h2>
 					<p>Edit <code>.gitignore</code>, for example:</p>
-<pre><code data-trim contenteditable>
-.classpath
+<pre><code>.classpath
 .project
 .vlt/
 .settings/
@@ -540,39 +538,47 @@ target/
 				</section>
 				<section>
 					<h2>Get it in Git</h2>
-<pre><code>
-git add *
+<pre><code>git add *
 git commit -m 'Initial project version'
 </code></pre>
 				</section>
 				<section>
 					<h2>Get it in Github (optional)</h2>
-					<ul>
-						<li>Create a project on github</li>
-						<li><code>git remote add origin git@github.com:YOURUSERNAME/YOURPROJECTNAME.git</code></li>
-						<li><code>git pull origin master</code></li>
-						<li><code>git push origin master</code></li>
-					</ul>
-					<p><br /><small>See also: <a href="http://github.com/">github</a></small></p>
+<pre>cd project
+git <strong class="fragment highlight-red">hub-new-repo</strong>
+</pre>
+<p><br />See <a href="http://stackoverflow.com/a/16766133/1081791">CLI remote github repo creation</a> for <code>hub-new-repo</code></p>
+<p><br /><small>See also: <a href="http://github.com/">github</a></small></p>
 				</section>
 				<section>
-					<h2>Install project</h2>
+					<h3>... time passes ...</h3>
 				</section>
 				<section>
 					<h2>Commit project</h2>
-				</section>
-				<section>
-					<h2>Test project</h2>
-					<p>For guru ninjas and people that don't like being bugged by their colleagues.</p>
-					<p>Prove it works on different platform. From scratch.</p>
+					<ul>
+						<li><code>git add <em>filenames</em></code></li>
+						<li><code>git commit -m "<em>meaningful message</em>"</code></li>
+						<li><code>git push origin master</code></li>
+					</ul>
 				</section>
 			</section>
 
 			<!-- Practical examples -->
-			<section>
+			<section data-state="lila">
 				<section>
-					<h2>Working with your project</h2>
-					<p>What now?</p>
+					<h2>FIX #3: (BEST) PRACTICE(S)</h2>
+					<!-- FIXME something about reinventing wheels -->
+				</section>
+				<section>
+					<h2>0-60 in FIXME commands</h2>
+<pre class="fragment"><code>mvn archetype:generate -DarchetypeGroupId=com.day.jcr.vault \
+-DarchetypeArtifactId=multimodule-content-package-archetype \
+-DarchetypeVersion=1.0.1 -DarchetypeRepository=adobe-public-releases</code></pre>
+<pre class="fragment"><code>git init; git add *; git commit -m "Initial project"</code></pre>
+<pre class="fragment"><code>mvn -PautoInstallPackage install</code></pre>
+				</section>
+				<section>
+					<h2>Detail</h2>
 					<ul>
 						<li>Build a content package: <code>mvn install</code></li>
 						<li>Build and deploy: <code>mvn -PautoInstallPackage install</code></li>
@@ -582,19 +588,28 @@ git commit -m 'Initial project version'
 						We've got the project, before we break it, let's save it.</p>
 					</aside>
 				</section>
+				<section>
+					<h2>Test project</h2>
+					<p>For guru ninjas and people that don't like being bugged by their colleagues.</p>
+					<p>Prove it works on different platform. From scratch.</p>
+				</section>
 			</section>
 
 			<!-- BASIC EXAMPLE END-TO-END -->
-			<section>
-				<h2>Putting it all together</h2>
+			<section data-state="whiteout">
+				<section>
+					<h2>Putting it all together</h2>
+				</section>
 			</section>
 
-			<section>
-				<h2>Credits</h2>
+			<section data-state="sunset">
+				<section>
+					<h2>Credits</h2>
 
-				<ul>
-					<li><a href="http://thenounproject.com/noun/light-bulb/#icon-No7582" target="_blank">Light Bulb</a> designed by <a href="http://thenounproject.com/Shane_kenna" target="_blank">Shane David Kenna</a> from The Noun Project</li>
-				</ul>
+					<ul>
+						<li><a href="http://thenounproject.com/noun/light-bulb/#icon-No7582" target="_blank">Light Bulb</a> designed by <a href="http://thenounproject.com/Shane_kenna" target="_blank">Shane David Kenna</a> from The Noun Project</li>
+					</ul>
+				</section>
 			</section>
 <!--
 			<section data-markdown="talk.md" data-separator="^\n\n\n" data-vertical="^\n\n"></section>
