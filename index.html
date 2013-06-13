@@ -66,13 +66,34 @@
 
 			</section>
 
+			<!-- Getting to know the audience -->
+			<section>
+				<section>
+					<img style="border: none" width="50%" src="images/group.svg" alt="audience"/>
+					<aside class="notes">
+						How about the audience? Tell me about yourselves...
+					</aside>
+				</section>
+				<section>
+					<img style="border: none" width="50%" src="images/question bubble.svg" "questions"/>
+					<aside class="notes">
+						How many of you have heard of Maven?
+						How many of you have used Maven?
+						How many of you have used version control?
+						How many of you have used git?
+						How many of you use Maven and version control on your CQ projects?
+					</aside>
+				</section>
+			</section>
+
 			<!-- DEFINE THE PROBLEM -->
 			<section>
 				<section>
 
 					<h2>Let's build a CQ site</h2>
-
-					<p class="fragment">... uh, where to begin?</p>
+					<p class="fragment"><img style="border: none" width="30%" src="images/question mark.svg" alt="question mark"/><br />
+					... uh, where to begin?
+					</p>
 				</section>
 				<section>
 					<h3>Method 1</h3>
@@ -94,12 +115,18 @@
 				</section>
 				<section>
 					<h3>Method 5</h3>
-					<p><em>Insert magnetising a hard disk joke</em></p>
+					<p class="fragment">
+					<img style="border: none" width="30%" src="images/magnet.svg" alt="magnet"/>
+					<img style="border: none" width="30%" src="images/hard disk.svg" alt="hard disk"/></p>
+					<p class="fragment"><br /><small>See also: <a href="http://xkcd.com/378/">http://xkcd.com/378/ – Real Programmers</a></small></p>
+					<aside class="notes">
+						Real programmers program by waving magnets over hard disks
+					</aside>
 				</section>
 				<section>
 					<h3>But what about ...</h3>
 					<p class="fragment">reproducible builds?</p>
-					<p class="fragment">using revision control?</p>
+					<p class="fragment">reverting mistakes?</p>
 					<p class="fragment">collaborating with others?</p>
 					<p class="fragment">deploying to production?</p>
 					<aside class="notes">
@@ -247,20 +274,29 @@
 			<!-- MAVEN DETAILS -->
 			<section data-state="maven">
 				<section>
-					<h2>FIX #1: MAVEN</h2>
+					<h2>Using Maven</h2>
 					<!-- FIXME something about reinventing wheels -->
+				</section>
+
+				<section>
+					<h2>Starting a new project ...</h2>
+					<img style="border: none" class="fragment" width="30%" src="images/lightbulb.svg" alt="lightbulb"/>
+					<img style="border: none" class="fragment" width="30%" src="images/wheel.svg" alt="wheel"/>
+					<p class="fragment">... can sometimes feel like reinventing the wheel.</p>
 				</section>
 
 				<section>
 					<h2>Archetypes</h2>
 					<p><strong>archetype</strong> |ˈɑːkɪtʌɪp|<br />
-						<small>noun</small><br />
-						a very typical example of a certain person or thing: <em>he was the archetype of the old-style football club chairman.</em><br />
-						• an original which has been imitated; a prototype: <em>an instrument which was the archetype of the early flute.</em></p>
+						<small>noun</small></p>
+					<ul>
+						<li>a very typical example of a certain person or thing: <em>he was the archetype of the old-style football club chairman.</em></li>
+						<li>an original which has been imitated; a prototype: <em>an instrument which was the archetype of the early flute.</em></li>
+					</ul>
 				</section>
 				<section>
 					<h2>Maven Archetypes</h2>
-					<p>A prototype upon which others are copied, patterned, or emulated.</p>
+					<blockquote>A prototype upon which others are<br />copied, patterned, or emulated.</blockquote>
 				</section>
 				<section>
 					<h2>What CQ archetypes are there?</h2>
@@ -282,6 +318,9 @@
 							<li>Third-party archetype encapsulating best practices for working with e.g. OSGi bundles, taglibs, and CQ content</li>
 						</ul>
 					</ul>
+					<aside class="notes">
+						Each archetype name is highlighted in turn.
+					</aside>
 				</section>
 				<section>
 					<h2>How to use an archetype</h2>
@@ -296,7 +335,7 @@
 				</section>
 
 				<section>
-					<h2>Archetypes Arguments</h2>
+					<h2>Archetype Arguments</h2>
 <pre><code>mvn archetype:generate
 	-DarchetypeGroupId=foo
 	-DarchetypeArtifactId=bar
@@ -346,13 +385,13 @@
 				<section>
 					<h2>Simple content package parameters</h2>
 					<ul>
-						<li>groupId: Like a package name, e.g. com.yourcompany.myproject</li>
-						<li>artifactId: name of the jar without the version, e.g. myproject</li>
-						<li>version: accept the default</li>
-						<li>package: not used in simple-content-package FIXME</li>
-						<li>appsFolderName: name of /apps/myproject, e.g. myproject</li>
-						<li>artifactName: FIXME</li>
-						<li>packageGroup: FIXME sidekick?</li>
+						<li><strong>groupId</strong>: Like a package name, e.g. com.yourcompany.myproject</li>
+						<li><strong>artifactId</strong>: name of the jar without the version, e.g. myproject</li>
+						<li><strong>version</strong>: accept the default</li>
+						<li><strong>package</strong>: not used in simple-content-package FIXME</li>
+						<li><strong>appsFolderName</strong>: name of /apps/myproject, e.g. myproject</li>
+						<li><strong>artifactName</strong>: FIXME</li>
+						<li><strong>packageGroup</strong>: FIXME sidekick?</li>
 					</ul>
 					<p><br /><small>See also: <a href="http://maven.apache.org/guides/mini/guide-naming-conventions.html">Maven: Naming conventions</a></small></p>
 				</section>
@@ -508,12 +547,12 @@
 			<!-- GIT DETAILS -->
 			<section data-state="mint">
 				<section>
-					<h2>FIX #2: GIT</h2>
+					<h2>Using Git</h2>
 					<!-- FIXME something about reinventing wheels -->
 				</section>
 				<section>
 					<h2>Why Git?</h2>
-					<ul>
+					<ul class="fragment">
 						<li>Local safety net</li>
 						<li>"The internet is my backup"</li>
 						<li>It's good to share</li>
@@ -566,27 +605,29 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 			<!-- Practical examples -->
 			<section data-state="lila">
 				<section>
-					<h2>FIX #3: (BEST) PRACTICE(S)</h2>
+					<h2>(BEST) PRACTICE(S)</h2>
 					<!-- FIXME something about reinventing wheels -->
 				</section>
 				<section>
-					<h2>0-60 in FIXME commands</h2>
-<pre class="fragment"><code>mvn archetype:generate -DarchetypeGroupId=com.day.jcr.vault \
--DarchetypeArtifactId=multimodule-content-package-archetype \
--DarchetypeVersion=1.0.1 -DarchetypeRepository=adobe-public-releases</code></pre>
-<pre class="fragment"><code>git init; git add *; git commit -m "Initial project"</code></pre>
-<pre class="fragment"><code>mvn -PautoInstallPackage install</code></pre>
-				</section>
-				<section>
-					<h2>Detail</h2>
+					<h2>Build and deploy</h2>
 					<ul>
 						<li>Build a content package: <code>mvn install</code></li>
 						<li>Build and deploy: <code>mvn -PautoInstallPackage install</code></li>
+							<ul>
+								<li class="fragment">cqblueprints: <code>mvn -Pauto-deploy install</code></li>
+							</ul>
+
 					</ul>
 					<aside class="notes">
-						<p>BUT we're not going to do this ... yet.<br/>
-						We've got the project, before we break it, let's save it.</p>
 					</aside>
+				</section>
+				<section>
+					<h2>Stay in sync</h2>
+					<p>Using vlt to update, sync with repository</p>
+				</section>
+				<section>
+					<h2>Deploy</h2>
+					<p>Push to production ... workflows</p>
 				</section>
 				<section>
 					<h2>Test project</h2>
@@ -600,6 +641,13 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 				<section>
 					<h2>Putting it all together</h2>
 				</section>
+				<section>
+					<h2>0-60 in 4 pseudo lines</h2>
+<pre class="fragment"><code>mvn archetype:generate</code></pre>
+<pre class="fragment"><code>git init; git add *; git commit -m "Initial project"</code></pre>
+<pre class="fragment"><code>mvn -PautoInstallPackage install</code></pre>
+<pre class="fragment"><code>git add; git commit; git push</code></pre>
+				</section>
 			</section>
 
 			<section data-state="sunset">
@@ -608,6 +656,8 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 
 					<ul>
 						<li><a href="http://thenounproject.com/noun/light-bulb/#icon-No7582" target="_blank">Light Bulb</a> designed by <a href="http://thenounproject.com/Shane_kenna" target="_blank">Shane David Kenna</a> from The Noun Project</li>
+						<li><a href="http://thenounproject.com/noun/question/#icon-No2185" target="_blank">Question</a> designed by <a href="http://thenounproject.com/anasr" target="_blank">Anas Ramadan</a> from The Noun Project</li>
+						<li><a href="http://thenounproject.com/noun/hard-disk-drive/#icon-No15295" target="_blank">Hard Disk Drive</a> designed by <a href="http://thenounproject.com/Eddieative" target="_blank">Eddie Alshehri</a> from The Noun Project</li>
 					</ul>
 				</section>
 			</section>
