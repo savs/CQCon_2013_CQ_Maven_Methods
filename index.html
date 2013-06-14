@@ -303,7 +303,7 @@
 					<ul>
 						<li class="fragment highlight-green"><em>simple-content-package</em></li>
 						<ul>
-							<li>Generates a simple content package</li>
+							<li>Generates a simple <a href="http://dev.day.com/docs/en/cq/current/administering/package_manager.html">content package</a></li>
 						</ul>
 						<li class="fragment highlight-green"><em>simple-content-package-with-embedded</em></li>
 						<ul>
@@ -311,15 +311,21 @@
 						</ul>
 						<li class="fragment highlight-green"><em>multimodule-content-package</em></li>
 						<ul>
-							<li>Includes the folder structure for developing a CQ application.</li>
+							<li>Includes the folder structure for developing a CQ application (content and bundle).<!-- FIXME exact details of what a bundle is --></li>
 						</ul>
 						<li class="fragment highlight-green"><em>cqblueprints multi-module</em></li>
 						<ul>
 							<li>Third-party archetype encapsulating best practices for working with e.g. OSGi bundles, taglibs, and CQ content</li>
 						</ul>
 					</ul>
+					<p><br /><small>See also: <a href="http://dev.day.com/docs/en/cq/current/administering/package_manager.html">How to work with packages</a></small></p>
 					<aside class="notes">
-						Each archetype name is highlighted in turn.
+						<ul>
+							<li>Each archetype name is highlighted in turn</li>
+							<li>Package: enable the importing and exporting of repository content. Used to install new functionality, transfer content between instances, or back up the repository</li>
+							<li>Package is a zip file in file system (vault) serialization</li>
+							<li>Includes meta information - filter definitions, import configuration, package properties</li>
+						</ul>
 					</aside>
 				</section>
 				<section>
@@ -391,7 +397,7 @@
 						<li><strong>package</strong>: not used in simple-content-package FIXME</li>
 						<li><strong>appsFolderName</strong>: name of /apps/myproject, e.g. myproject</li>
 						<li><strong>artifactName</strong>: FIXME</li>
-						<li><strong>packageGroup</strong>: FIXME sidekick?</li>
+						<li><strong>packageGroup</strong>: Group in Package Manager</li>
 					</ul>
 					<p><br /><small>See also: <a href="http://maven.apache.org/guides/mini/guide-naming-conventions.html">Maven: Naming conventions</a></small></p>
 				</section>
@@ -609,6 +615,13 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 					<!-- FIXME something about reinventing wheels -->
 				</section>
 				<section>
+					<h2>What can we build?</h2>
+					<ul>
+						<li><strong>Content package</strong>: </li>
+						<li><strong>Bundle</strong>: </li>
+					</ul>
+				</section>
+				<section>
 					<h2>Build and deploy</h2>
 					<ul>
 						<li>Build a content package: <code>mvn install</code></li>
@@ -622,8 +635,30 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 					</aside>
 				</section>
 				<section>
+					<h2>The FileVault tool</h2>
+					<p>You can use the FileVault tool (<code>vlt</code>) to check in, check out, update and sync local content with the repository.</p>
+					<ul>
+						<li>Install: extract <code>crx-quickstart/opt/filevault/filevault.[tgz|zip]</code> and add to your path</li>
+						<li>Usage: <code>vlt --credentials admin:admin co --force http://localhost:4502/crx</code></li>
+					</ul>
+					<p><br /><small>See also: <a href="http://dev.day.com/docs/en/cq/current/core/how_to/how_to_use_the_vlttool.html">How to use the VLT Tool</a></small></p>
+				</section>
+				<section>
 					<h2>Stay in sync</h2>
-					<p>Using vlt to update, sync with repository</p>
+					<ul>
+						<li>Go to the JCR root:<br /><code class="fragment highlight-green">cd content/src/main/content/jcr_root/</code></li>
+						<li>Check out the repository:<br /><code class="fragment highlight-green">vlt --credentials admin:admin co --force http://localhost:4502/crx</code></li>
+						<li>Install and automatically configure the vault sync service bundle:<br /><code class="fragment highlight-green">vlt --credentials admin:admin sync --uri http://localhost:4502/crx install</code></li>
+						<li>Add the current folder to the sync configuration:<br /><code class="fragment highlight-green">vlt sync register</code></li>
+					</ul>
+				</section>
+				<section>
+					<h2>Three-way syncing</h2>
+					<ul>
+						<li>FileVault will keep the repository and filesystem in sync; you also need to keep the source control system in sync</li>
+						<li>Edit <code>.vlt-sync-config.properties</code> and set <code>sync-once</code> to control definitive versions.</li>
+						<li>Then use <code>git pull</code>, <code>git add</code>, and <code>git commit</code> to update with SCM</li>
+					</ul>
 				</section>
 				<section>
 					<h2>Deploy</h2>
@@ -650,6 +685,39 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 				</section>
 			</section>
 
+			<section>
+				<section>
+					<h2>Where next?</h2>
+				</section>
+				<section>
+					<h2>Continuous Integration</h2>
+					<ul>
+						<li><a href="http://jenkins-ci.org/">Jenkins</a> with <a href="https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin">Git plugin</a>, <a href="https://wiki.jenkins-ci.org/display/JENKINS/Github+Plugin">GitHub plugin</a></li>
+						<li><a href="http://www.seleniumhq.org/">Selenium</a> as a <a href="http://www.labelmedia.co.uk/blog/posts/setting-up-selenium-server-on-a-headless-jenkins-ci-build-machine.html">server</a></li>
+						<li><a href="http://cukes.info/">Cucumber</a> <a href="https://github.com/cucumber/cucumber-jvm#readme">for java</a> with <a href="https://github.com/masterthought/jenkins-cucumber-jvm-reports-plugin-java#readme">Jenkins plugin</a> and <a href="http://aslakhellesoy.com/post/20006051268/cucumber-jvm-1-0-0">tests in java</a></li>
+					</ul>
+				</section>
+				<section>
+					<h2>Deployment profile</h2>
+					<p>FIXME: need to find appropriate version for each archetype</p>
+<pre>
+&lt;profiles&gt;
+    &lt;!-- profile for deployment to shared development instance --&gt;
+    &lt;profile&gt;
+        &lt;id&gt;devDeploy&lt;/id&gt;
+        &lt;activation&gt;
+        &lt;/activation&gt;
+        &lt;properties&gt;
+            &lt;depl.user&gt;&lt;!-- {shared instance user} --&gt;&lt;/depl.user&gt;
+            &lt;depl.password&gt;&lt;!-- {shared instance password} --&gt;&lt;/depl.password&gt;
+            &lt;depl.host&gt;&lt;!-- {shared instance IP} --&gt;&lt;/depl.host&gt;
+            &lt;depl.port&gt;4502&lt;/depl.port&gt;
+        &lt;/properties&gt;
+    &lt;/profile&gt;
+&lt;/profiles&gt;
+</pre>
+				</section>
+			</section>
 			<section data-state="sunset">
 				<section>
 					<h2>Credits</h2>
