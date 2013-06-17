@@ -47,9 +47,6 @@
 					<p>I'm Andrew.</p>
 					<p><a href="mailto:asavory@adobe.com">asavory@adobe.com</a></p>
 					<p><a href="http://twitter.com/savs">@savs</a>
-					<aside class="notes">
-						Please email me if you'd like to be added to planet cq.
-					</aside>
 				</section>
 
 				<section>
@@ -71,14 +68,24 @@
 						It's likely I haven't learnt everything ... so ...
 					</aside>
 				</section>
+
 				<section>
 					<h2>Fork me!</h2>
 					<p>If you found this talk useful, or spotted mistakes:<br />
 					<a href="https://github.com/savs/CQCon_2013_CQ_Maven_Methods">github.com/savs/CQCon_2013_CQ_Maven_Methods</a></p>
 				</section>
+
+				<section>
+					<h2>In your browser</h2>
+					<p><small><a href="http://www.andrewsavory.com/presentations/CQCon_2013_CQ_Maven_Methods/index.html">http://andrewsavory.com/presentations/CQCon_2013_CQ_Maven_Methods/index.html</a></small></p>
+				</section>
+
 				<section>
 					<h2>See also</h2>
 					<p><a href="http://www.planetcq.org/">http://www.planetcq.org/</a></p>
+					<aside class="notes">
+						Please email me if you'd like to be added to planet cq.
+					</aside>
 				</section>
 
 			</section>
@@ -137,7 +144,7 @@
 					<img style="border: none" width="30%" src="images/hard disk.svg" alt="hard disk"/></p>
 					<p class="fragment"><br /><small>See also: <a href="http://xkcd.com/378/">http://xkcd.com/378/ – Real Programmers</a></small></p>
 					<aside class="notes">
-						Real programmers program by waving magnets over hard disks
+						Real programmers program by waving magnets over hard disks to realign the magnetic flux patterns on the platters.
 					</aside>
 				</section>
 				<section>
@@ -327,13 +334,9 @@
 						<ul>
 							<li>Generates a simple <a href="http://dev.day.com/docs/en/cq/current/administering/package_manager.html">content package</a></li>
 						</ul>
-						<li class="fragment highlight-green"><em>simple-content-package-with-embedded</em></li>
-						<ul>
-							<li>Same as simple content package but downloads and includes an artifact from a public maven repository</li>
-						</ul>
 						<li class="fragment highlight-green"><em>multimodule-content-package</em></li>
 						<ul>
-							<li>Includes the folder structure for developing a CQ application (content and bundle).<!-- FIXME exact details of what a bundle is --></li>
+							<li>Includes the folder structure for developing a CQ application (content package and bundle).</li>
 						</ul>
 						<li class="fragment highlight-green"><em>cqblueprints multi-module</em></li>
 						<ul>
@@ -344,11 +347,26 @@
 					<aside class="notes">
 						<ul>
 							<li>Each archetype name is highlighted in turn</li>
-							<li>Package: enable the importing and exporting of repository content. Used to install new functionality, transfer content between instances, or back up the repository</li>
-							<li>Package is a zip file in file system (vault) serialization</li>
-							<li>Includes meta information - filter definitions, import configuration, package properties</li>
 						</ul>
 					</aside>
+				</section>
+				<section>
+					<h2>On Packages</h2>
+					<ul>
+						<li>Packages enable the importing and exporting of repository content. They are used to install new functionality, transfer content between instances, or back up the repository</li>
+						<li>A package is a zip file in file system (vault) serialization format</li>
+						<li>Packages include meta information - filter definitions, import configuration, package properties</li>
+						<li>Packages are often managed through the CQ <a href="http://localhost:4502/crx/packmgr/index.jsp">Package Manager</a></li>
+					</ul>
+				</section>
+				<section>
+					<h2>On Bundles</h2>
+					<ul>
+						<li>Bundles are modular containers of functionality for OSGi – essentially a java module that contains application logic</li>
+						<li>Bundles consist of java classes and other resources needed to deliver functionality or to provide services to other bundles.</li>
+						<li>Bundles can be managed through the CQ <a href="http://localhost:4502/system/console/bundles">Web Console</a></li>
+					</ul>
+					<p><br /><small>See also: <a href="http://helpx.adobe.com/adobe-cq/using/creating-osgi-bundles-digital-marketing.html">Creating OSGi bundles using CRXDE</a></small></p>
 				</section>
 				<section>
 					<h2>How to use an archetype</h2>
@@ -420,41 +438,10 @@
 					</ul>
 				</section>
 				<section>
-					<h2>Simple content package (with embedded artifact) output</h2>
-					<ul>
-						<li>Everything from simple content package</li>
-						<li>Adds an artifact to the pom.xml<br />
-							This allows third-party dependencies to be easily included in your deployed application.</li>
-					</ul>
-					<p>FIXME example</p>
-					<!-- FIXME are we sure about this? -->
-				</section>
-				<section>
-					<h2>Simple content package (with embedded artifact) pom.xml</h2>
-<pre><code>&lt;embeddeds&gt;
-    &lt;embedded&gt;
-        &lt;groupId&gt;org.apache.sling&lt;/groupId&gt;
-        &lt;artifactId&gt;org.apache.sling.testing.samples.sampletests&lt;/artifactId&gt;
-        &lt;addFilter&gt;true&lt;/addFilter&gt;
-        &lt;target&gt;/apps/yourproject/install&lt;/target&gt;
-    &lt;/embedded&gt;
-&lt;/embeddeds&gt;
-
-&lt;dependencies&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.apache.sling&lt;/groupId&gt;
-        &lt;artifactId&gt;org.apache.sling.testing.samples.sampletests&lt;/artifactId&gt;
-        &lt;version&gt;1.0.6&lt;/version&gt;
-        &lt;scope&gt;provided&lt;/scope&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;
-</code></pre>
-				</section>
-				<section>
-					<h2>Using the multimodule content package Archetype</h2>
+					<h2>Multimodule Content Package Usage</h2>
 <pre><code>mvn archetype:generate
 	-DarchetypeGroupId=com.day.jcr.vault
-	-DarchetypeArtifactId=simple-content-package-archetype
+	-DarchetypeArtifactId=multimodule-content-package-archetype
 	-DarchetypeVersion=1.0.1
 	-DarchetypeRepository=adobe-public-releases
 </code></pre>
@@ -499,29 +486,24 @@
 
 
 				<section>
-					<h2>Using the cqblueprints multi-module Archetype</h2>
+					<h2>cqblueprints multi-module Usage</h2>
 					<ul>
-						<li>Add the CQ Blueprints Maven Repository to Maven's <code>settings.xml</code></li>
-						<li>Use <code>archetype:generate</code> with the following arguments:</li>
-						<ul>
-							<li><strong>archetypeGroupID</strong>: <em>com.cqblueprints.archetypes</em></li>
-							<li><strong>archetypeArtifactId</strong>: <em>multi-module</em></li>
-							<li><strong>archetypeVersion</strong>: <em>1.0.5</em></li>
-							<li><strong>archetypeRepository</strong>: <em>cqblueprints.plugins.releases</em></li>
-						</ul>
+						<li>First add the CQ Blueprints Maven Repository to Maven's <code>settings.xml</code>, then:</li>
 					</ul>
-					<p><br /><small>See also: <a href="http://cqblueprints.com/xwiki/bin/view/Blue+Prints/Connecting+to+the+CQ+Blueprints+Repository">Connecting to the CQ Blueprints Repository</a> and <a href="http://cqblueprints.com/xwiki/bin/view/Blue+Prints/The+CQ+Project+Maven+Archetype">The CQ Project Maven Archetype</a></small></p>
-				</section>
-				<section>
-					<h2>Using the multimodule content package Archetype</h2>
-<pre><code>mvn -P cqblueprints archetype:generate
+<pre>mvn -P cqblueprints archetype:generate
 	-DarchetypeGroupId=com.cqblueprints.archetypes
 	-DarchetypeArtifactId=multi-module
 	-DarchetypeVersion=1.0.5
 	-DarchetypeRepository=cqblueprints.plugins.releases
-</code></pre>
+</pre>
+					<ul>
+						<li><strong>archetypeGroupID</strong>: <em>com.cqblueprints.archetypes</em></li>
+						<li><strong>archetypeArtifactId</strong>: <em>multi-module</em></li>
+						<li><strong>archetypeVersion</strong>: <em>1.0.5</em></li>
+						<li><strong>archetypeRepository</strong>: <em>cqblueprints.plugins.releases</em></li>
+					</ul>
+					<p><br /><small>See also: <a href="http://cqblueprints.com/xwiki/bin/view/Blue+Prints/Connecting+to+the+CQ+Blueprints+Repository">Connecting to the CQ Blueprints Repository</a> and <a href="http://cqblueprints.com/xwiki/bin/view/Blue+Prints/The+CQ+Project+Maven+Archetype">The CQ Project Maven Archetype</a></small></p>
 				</section>
-
 				<section>
 					<h2>cqblueprints multi-module output</h2>
 <pre>${artifactId}
@@ -536,13 +518,13 @@
    |- ${artifactId}-view
 </pre>
 				</section>
-				<!-- FIXME drill-down into directories -->
 				<section>
 					<h2>Why use cqblueprints multi-module?</h2>
 
 					<blockquote cite="http://www.headwire.com/">
 						&ldquo;The things we wanted to consider with our archetype is to address concerns of larger teams&rdquo;
 					</blockquote>
+					<p>The cqblueprint multi-module archetype is developed by <a href="http://www.headwire.com/">headwire.com</a></p>
 				</section>
 				<section>
 					<h2>CQBlueprints multimodule design</h2>
@@ -627,23 +609,28 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 						&ldquo;the three great virtues of a programmer: laziness, impatience, and hubris&rdquo;
 					</blockquote>
 				</section>
+
+				<section>
+					<img style="border: none" src="images/CMS_Borat_click_faster.png" alt="CMS Borat quote"/>
+					<aside class="notes">
+						If you're clicking the mouse you're doing it wrong.
+					</aside>
+				</section>
+
 					<!-- FIXME check package/bundle differences -->
 				<section>
 					<h2>Building</h2>
 					<img style="border: none" width="30%" src="images/build.svg" alt="build"/>
 				</section>
 				<section>
-					<h2>What can we build?</h2>
-					<p>Create local zips and jars that you can upload:</p>
+					<h2>How can we build smarter?</h2>
+
+					<p>Create local zips and jars that you can upload: <br />
+					<code>mvn package</code><br />
+					produces:</p>
 					<ul>
-						<li><strong>Content package</strong>: <code>mvn install</code></li>
-						<ul>
-							<li>output: <code>target/yourapp-content-1.0-SNAPSHOT.zip</code></li>
-						</ul>
-						<li><strong>Bundle</strong>: <code>mvn install</code></li>
-						<ul>
-							<li>output: <code>target/testapp-bundle-1.0-SNAPSHOT.jar</code></li>
-						</ul>
+						<li><strong>Content package</strong> output: <code>target/yourapp-content-1.0-SNAPSHOT.zip</code></li>
+						<li><strong>Bundle</strong> output: <code>target/testapp-bundle-1.0-SNAPSHOT.jar</code></li>
 					</ul>
 				</section>
 				<section>
@@ -651,15 +638,13 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 					<img style="border: none" width="30%" src="images/upload.svg" alt="upload"/>
 				</section>
 				<section>
-					<h2>How can we build <em>and</em> deploy?</h2>
+					<h2>How can we build <em>and</em> deploy smarter?</h2>
 					<ul>
 						<li><strong>Content package</strong>: <code>mvn -PautoInstallPackage install</code></li>
 						<li><strong>Bundle</strong>: <code>mvn -PautoInstallBundle install</code></li>
 					</ul>
 					<br />
-					<ul>
-						<li>cqblueprints: <code>mvn -Pauto-deploy install</code></li>
-					</ul>
+					<p><br />cqblueprints: <code>mvn -Pauto-deploy install</code></p>
 				</section>
 				<section>
 					<h2>Managing the Repository</h2>
@@ -775,10 +760,6 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 					<p>... see Lydia's talk</p>
 				</section>
 				<section>
-					<h2>Deployment Testing</h2>
-					<p>... see Bertrand's talk</p>
-				</section>
-				<section>
 					<h2>Deployment profile</h2>
 					<p>FIXME: need to find appropriate version for each archetype</p>
 <pre>
@@ -797,6 +778,10 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
     &lt;/profile&gt;
 &lt;/profiles&gt;
 </pre>
+				</section>
+				<section>
+					<h2>Deployment Testing</h2>
+					<p>... see Bertrand's talk</p>
 				</section>
 			</section>
 			<section data-state="sunset">
