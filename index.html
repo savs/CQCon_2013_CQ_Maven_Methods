@@ -34,7 +34,6 @@
 					<p>I'm Andrew.</p>
 					<p><a href="mailto:asavory@adobe.com">asavory@adobe.com</a></p>
 					<p><a href="http://twitter.com/savs">@savs</a>
-					<p><a href="http://www.planetcq.org/">http://www.planetcq.org/</a></p>
 					<aside class="notes">
 						Please email me if you'd like to be added to planet cq.
 					</aside>
@@ -46,6 +45,7 @@
 
 				<section>
 					<p>CQ Newbie</p>
+					<p class="fragment">JCR/CMS/TLA old hat</p>
 				</section>
 
 				<section>
@@ -62,6 +62,10 @@
 					<h2>Fork me!</h2>
 					<p>If you found this talk useful, or spotted mistakes:<br />
 					<a href="https://github.com/savs/CQCon_2013_CQ_Maven_Methods">github.com/savs/CQCon_2013_CQ_Maven_Methods</a></p>
+				</section>
+				<section>
+					<h2>See also</h2>
+					<p><a href="http://www.planetcq.org/">http://www.planetcq.org/</a></p>
 				</section>
 
 			</section>
@@ -125,11 +129,12 @@
 				</section>
 				<section>
 					<h3>But what about ...</h3>
-					<p class="fragment">reproducible builds?</p>
 					<p class="fragment">reverting mistakes?</p>
+					<p class="fragment">reproducible builds?</p>
 					<p class="fragment">collaborating with others?</p>
 					<p class="fragment">deploying to production?</p>
 					<aside class="notes">
+						Each of these approaches works to some degree, but don't necessarily lead to a sustainable development environment.
 					</aside>
 				</section>
 			</section>
@@ -221,7 +226,7 @@
 				<section>
 					<h2>Configuring Maven</h2>
 <pre><small><code>&lt;profile&gt;
- &lt;id&gt;adobe-public&lt;/id&gt;
+    &lt;id&gt;adobe-public&lt;/id&gt;
     &lt;activation&gt;
          &lt;activeByDefault&gt;false&lt;/activeByDefault&gt;
     &lt;/activation&gt;
@@ -264,10 +269,12 @@
 				<section>
 					<h2>Configuring Maven</h2>
 					<p>Enable the repository:</p>
-<pre><code>&lt;activeProfiles&gt;
+<pre>&lt;activeProfiles&gt;
     &lt;activeProfile&gt;adobe-public&lt;/activeProfile&gt;
 &lt;/activeProfiles&gt;
-</code></pre>
+</pre>
+<p>Or use the <code>-P</code> option to activate profile(s):</p>
+<pre>mvn -P adobe-public [...]</pre>
 				</section>
 			</section>
 
@@ -280,8 +287,10 @@
 
 				<section>
 					<h2>Starting a new project ...</h2>
-					<img style="border: none" class="fragment" width="30%" src="images/lightbulb.svg" alt="lightbulb"/>
-					<img style="border: none" class="fragment" width="30%" src="images/wheel.svg" alt="wheel"/>
+					<span class="fragment">
+						<img style="border: none" width="30%" src="images/lightbulb.svg" alt="lightbulb"/>
+						<img style="border: none" width="30%" src="images/wheel.svg" alt="wheel"/>
+					</span>
 					<p class="fragment">... can sometimes feel like reinventing the wheel.</p>
 				</section>
 
@@ -330,31 +339,19 @@
 				</section>
 				<section>
 					<h2>How to use an archetype</h2>
-					<p>General format of the maven archetype command is:</p>
 <pre><code>mvn archetype:generate
 	-DarchetypeGroupId=foo
 	-DarchetypeArtifactId=bar
 	-DarchetypeVersion=1.0.0
 	-DarchetypeRepository=baz
 </code></pre>
-					<p><br /><small>See also: <a href="http://maven.apache.org/guides/introduction/introduction-to-archetypes.html">Maven: Introduction to Archetypes</a></small></p>
-				</section>
-
-				<section>
-					<h2>Archetype Arguments</h2>
-<pre><code>mvn archetype:generate
-	-DarchetypeGroupId=foo
-	-DarchetypeArtifactId=bar
-	-DarchetypeVersion=1.0.0
-	-DarchetypeRepository=baz
-</code></pre>
-
 					<ul>
 						<li><strong>archetypeGroupId</strong>: identifies the archetype project uniquely across all projects</li>
 						<li><strong>archetypeArtifactId</strong>: the name of the archetype jar without a version number</li>
 						<li><strong>archetypeRepository</strong>: where to get the archetype from (based on pluginRepository in settings.xml)</li>
 					</ul>
-					<p><br /><small>See also: <a href="http://maven.apache.org/guides/mini/guide-naming-conventions.html">Maven: Naming conventions</a></small></p>
+
+					<p><br /><small>See also: <a href="http://maven.apache.org/guides/introduction/introduction-to-archetypes.html">Maven: Introduction to Archetypes</a> and <a href="http://maven.apache.org/guides/mini/guide-naming-conventions.html">Maven: Naming conventions</a></small></p>
 				</section>
 
 				<section>
@@ -364,17 +361,13 @@
 				</section>
 
 				<section>
-					<h2>Using the Simple content package Archetype</h2>
+					<h2>Simple content package usage</h2>
 <pre><code>mvn archetype:generate
 	-DarchetypeGroupId=com.day.jcr.vault
 	-DarchetypeArtifactId=simple-content-package-archetype
 	-DarchetypeVersion=1.0.1
 	-DarchetypeRepository=adobe-public-releases
 </code></pre>
-				</section>
-
-				<section>
-					<h2>Archetype Arguments</h2>
 					<ul>
 						<li><strong>archetypeGroupId</strong>: <span class="fragment highlight-green">com.day.jcr.vault</span><br />identifies the archetype project uniquely across all projects</li>
 						<li><strong>archetypeArtifactId</strong>: <span class="fragment highlight-green">simple-content-package-archetype</span><br />the name of the archetype jar without a version number</li>
@@ -498,10 +491,10 @@
 						<li>Add the CQ Blueprints Maven Repository to Maven's <code>settings.xml</code></li>
 						<li>Use <code>archetype:generate</code> with the following arguments:</li>
 						<ul>
-							<li>archetypeGroupID: <em>com.cqblueprints.archetypes</em></li>
-							<li>archetypeArtifactId: <em>multi-module</em></li>
-							<li>archetypeVersion: <em>1.0.5</em></li>
-							<li>archetypeRepository: <em>cqblueprints.plugins.releases</em></li>
+							<li><strong>archetypeGroupID</strong>: <em>com.cqblueprints.archetypes</em></li>
+							<li><strong>archetypeArtifactId</strong>: <em>multi-module</em></li>
+							<li><strong>archetypeVersion</strong>: <em>1.0.5</em></li>
+							<li><strong>archetypeRepository</strong>: <em>cqblueprints.plugins.releases</em></li>
 						</ul>
 					</ul>
 					<p><br /><small>See also: <a href="http://cqblueprints.com/xwiki/bin/view/Blue+Prints/Connecting+to+the+CQ+Blueprints+Repository">Connecting to the CQ Blueprints Repository</a> and <a href="http://cqblueprints.com/xwiki/bin/view/Blue+Prints/The+CQ+Project+Maven+Archetype">The CQ Project Maven Archetype</a></small></p>
@@ -541,11 +534,11 @@
 				<section>
 					<h2>CQBlueprints multimodule design</h2>
 					<ul>
-						<li>${artifactId}-view subproject: <em>where css/html/js developers (frontend) do their work</em></li>
-						<li>${artifactId}-taglib, -services: <em>where java developers (backend) do their work</em></li>
-						<li>${artifactId}-config: <em>where the configuration (runmode configs stored)</em></li>
-						<li>${artifactId}-content: <em>how we get initial content and site structure onto the developer's box quickly</em></li>
-						<li>${artifactId}-all: <em>how we hand off builds to the next environment</em></li>
+						<li><strong>foo-view</strong> subproject: <em>where css/html/js developers (frontend) do their work</em></li>
+						<li><strong>foo-taglib foo-services</strong>: <em>where java developers (backend) do their work</em></li>
+						<li><strong>foo-config</strong>: <em>where the configuration (runmode configs stored)</em></li>
+						<li><strong>foo-content</strong>: <em>how we get initial content and site structure onto the developer's box quickly</em></li>
+						<li><strong>foo-all</strong>: <em>how we hand off builds to the next environment</em></li>
 					</ul>
 				</section>
 			</section>
@@ -567,36 +560,38 @@
 				</section>
 				<section>
 					<h2>Git project setup</h2>
-<pre><code>cd projectname
+<pre>cd projectname
 git init
-</code></pre>
+</pre>
 				</section>
 				<section>
 					<h2>Git Ignore</h2>
 					<p>Edit <code>.gitignore</code>, for example:</p>
-<pre><code>.classpath
+<pre>.classpath
 .project
 .vlt/
 .settings/
 target/
-</code></pre>
+</pre>
 				</section>
 				<section>
 					<h2>Get it in Git</h2>
-<pre><code>git add *
+<pre>git add *
 git commit -m 'Initial project version'
-</code></pre>
+</pre>
 				</section>
 				<section>
 					<h2>Get it in Github (optional)</h2>
 <pre>cd project
 git <strong class="fragment highlight-red">hub-new-repo</strong>
 </pre>
-<p><br />See <a href="http://stackoverflow.com/a/16766133/1081791">CLI remote github repo creation</a> for <code>hub-new-repo</code></p>
+<p class="fragment"><code>hub-new-repo</code> is a shortcut for creating a repository on github and pushing your local repo into it</p>
+<p><br /><small>See also: <a href="http://stackoverflow.com/a/16766133/1081791">CLI remote github repo creation</a></small></p>
 <p><br /><small>See also: <a href="http://github.com/">github</a></small></p>
 				</section>
 				<section>
 					<h3>... time passes ...</h3>
+					<img style="border: none" width="30%" src="images/time.svg" alt="time"/>
 				</section>
 				<section>
 					<h2>Commit project</h2>
@@ -612,27 +607,50 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 			<section data-state="lila">
 				<section>
 					<h2>(BEST) PRACTICE(S)</h2>
-					<!-- FIXME something about reinventing wheels -->
+				</section>
+				<section>
+
+					<blockquote cite="http://c2.com/cgi/wiki?LazinessImpatienceHubris">
+						&ldquo;the three great virtues of a programmer: laziness, impatience, and hubris&rdquo;
+					</blockquote>
+				</section>
+					<!-- FIXME check package/bundle differences -->
+				<section>
+					<h2>Building</h2>
+					<img style="border: none" width="30%" src="images/build.svg" alt="build"/>
 				</section>
 				<section>
 					<h2>What can we build?</h2>
+					<p>Create local zips and jars that you can upload:</p>
 					<ul>
-						<li><strong>Content package</strong>: </li>
-						<li><strong>Bundle</strong>: </li>
+						<li><strong>Content package</strong>: <code>mvn install</code></li>
+						<ul>
+							<li>output: <code>target/yourapp-content-1.0-SNAPSHOT.zip</code></li>
+						</ul>
+						<li><strong>Bundle</strong>: <code>mvn install</code></li>
+						<ul>
+							<li>output: <code>target/testapp-bundle-1.0-SNAPSHOT.jar</code></li>
+						</ul>
 					</ul>
 				</section>
 				<section>
-					<h2>Build and deploy</h2>
+					<h2>Deploying</h2>
+					<img style="border: none" width="30%" src="images/upload.svg" alt="upload"/>
+				</section>
+				<section>
+					<h2>How can we build <em>and</em> deploy?</h2>
 					<ul>
-						<li>Build a content package: <code>mvn install</code></li>
-						<li>Build and deploy: <code>mvn -PautoInstallPackage install</code></li>
-							<ul>
-								<li class="fragment">cqblueprints: <code>mvn -Pauto-deploy install</code></li>
-							</ul>
-
+						<li><strong>Content package</strong>: <code>mvn -PautoInstallPackage install</code></li>
+						<li><strong>Bundle</strong>: <code>mvn -PautoInstallBundle install</code></li>
 					</ul>
-					<aside class="notes">
-					</aside>
+					<br />
+					<ul>
+						<li>cqblueprints: <code>mvn -Pauto-deploy install</code></li>
+					</ul>
+				</section>
+				<section>
+					<h2>Managing the Repository</h2>
+					<img style="border: none" width="30%" src="images/2sync.svg" alt="sync"/>
 				</section>
 				<section>
 					<h2>The FileVault tool</h2>
@@ -642,6 +660,10 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 						<li>Usage: <code>vlt --credentials admin:admin co --force http://localhost:4502/crx</code></li>
 					</ul>
 					<p><br /><small>See also: <a href="http://dev.day.com/docs/en/cq/current/core/how_to/how_to_use_the_vlttool.html">How to use the VLT Tool</a></small></p>
+				</section>
+				<section>
+					<h2>Syncing</h2>
+					<img style="border: none" width="30%" src="images/3sync.svg" alt="sync"/>
 				</section>
 				<section>
 					<h2>Stay in sync</h2>
@@ -660,13 +682,35 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 						<li>Then use <code>git pull</code>, <code>git add</code>, and <code>git commit</code> to update with SCM</li>
 					</ul>
 				</section>
+				<section data-state="alert">
+					<img style="border: none" width="30%" src="images/warning.svg" alt="Warning"/>
+					<p>The VLT Sync feature only supports simple files and folders but detects special vault serialized files (.content.xml, dialog.xml, etc) and ignores them silently. Thus it is possible to use vault sync on a default vlt checkout.</p>
+				</section>
+				<section>
+					<h2>Safe VLT workflow</h2>
+					<ul>
+						<li>Use maven to create the project</li>
+						<li>Use vlt checkin/checkout</li>
+						<li><em>FIXME</em> worked examples here</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Development</h2>
+					<p><em>FIXME</em> worked examples here</p>
+					<ul>
+						<li>Use maven to create and deploy</li>
+						<li>Use CRXDE Lite to develop components, templates etc.</li>
+						<li>Use vlt to sync back locally</li>
+						<li>Use git to share</li>
+					</ul>
+				</section>
 				<section>
 					<h2>Deploy</h2>
-					<p>Push to production ... workflows</p>
+					<p>Push to production ... workflows FIXME</p>
 				</section>
 				<section>
 					<h2>Test project</h2>
-					<p>For guru ninjas and people that don't like being bugged by their colleagues.</p>
+					<p>FIXME</p>
 					<p>Prove it works on different platform. From scratch.</p>
 				</section>
 			</section>
@@ -675,6 +719,7 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 			<section data-state="whiteout">
 				<section>
 					<h2>Putting it all together</h2>
+					<img style="border: none" width="30%" src="images/puzzle.svg" alt="puzzle"/>
 				</section>
 				<section>
 					<h2>0-60 in 4 pseudo lines</h2>
@@ -688,6 +733,21 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 			<section>
 				<section>
 					<h2>Where next?</h2>
+				</section>
+				<section>
+					<h2>Workflow</h2>
+					<p>FIXME more detail here</p>
+					<ul>
+						<li>Project inception: generate with archetype</li>
+						<li>Put in git</li>
+						<li>Create components, templates with CRXDE Lite</li>
+						<li>Use vlt to sync back into local filesystem</li>
+						<li>Put in git</li>
+						<li>Use local filesystem to develop java/osgi bundles etc</li>
+						<li>Use maven to build and deploy</li>
+						<li>Put in git</li>
+						<li>Use a test framework to make sure it works (see next slide)</li>
+					</ul>
 				</section>
 				<section>
 					<h2>Continuous Integration</h2>
@@ -720,12 +780,22 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 			</section>
 			<section data-state="sunset">
 				<section>
+					<img style="border: none" width="30%" src="images/question speech.svg" alt="questions?"/>
+					<h3>Thank you. Questions?</h3>
+				</section>
+				<section>
 					<h2>Credits</h2>
 
 					<ul>
 						<li><a href="http://thenounproject.com/noun/light-bulb/#icon-No7582" target="_blank">Light Bulb</a> designed by <a href="http://thenounproject.com/Shane_kenna" target="_blank">Shane David Kenna</a> from The Noun Project</li>
 						<li><a href="http://thenounproject.com/noun/question/#icon-No2185" target="_blank">Question</a> designed by <a href="http://thenounproject.com/anasr" target="_blank">Anas Ramadan</a> from The Noun Project</li>
 						<li><a href="http://thenounproject.com/noun/hard-disk-drive/#icon-No15295" target="_blank">Hard Disk Drive</a> designed by <a href="http://thenounproject.com/Eddieative" target="_blank">Eddie Alshehri</a> from The Noun Project</li>
+						<li><a href="http://thenounproject.com/noun/time/#icon-No7383" target="_blank">Time</a> designed by <a href="http://thenounproject.com/Wayne25uk" target="_blank">wayne25uk</a> from The Noun Project</li>
+						<li><a href="http://thenounproject.com/noun/sync/#icon-No2888" target="_blank">Sync</a> designed by <a href="http://thenounproject.com/somerandomdude" target="_blank">P.J. Onori</a> from The Noun Project</li>
+						<li><a href="http://thenounproject.com/noun/sync/#icon-No5857" target="_blank">Sync</a> designed by <a href="http://thenounproject.com/rohithdezinr" target="_blank">Rohith M S</a> from The Noun Project</li>
+						<li><a href="http://thenounproject.com/noun/cloud-upload/#icon-No2633" target="_blank">Cloud Upload</a> designed by <a href="http://thenounproject.com/adamwhitcroft" target="_blank">Adam Whitcroft</a> from The Noun Project</li>
+						<li><a href="http://thenounproject.com/noun/puzzle/#icon-No1201" target="_blank">Puzzle</a> designed by <a href="http://thenounproject.com/legologic" target="_blank">John O&#39;Shea</a> from The Noun Project</li>
+						<li><a href="http://thenounproject.com/noun/question/#icon-No2036" target="_blank">Question</a> designed by <a href="http://thenounproject.com/henryryder" target="_blank">Henry Ryder</a> from The Noun Project</li>
 					</ul>
 				</section>
 			</section>
