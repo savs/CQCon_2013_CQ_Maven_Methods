@@ -13,6 +13,19 @@
 			.maven .reveal .state-background {
 				background: rgba( 179, 234, 245, 0.6 );
 			}
+/* page numbers https://github.com/hakimel/reveal.js/pull/56 */
+
+.reveal .controls div.slide-number {
+    width: 25px;
+    left: 27px;
+    top: 33px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: .5em;
+    font-weight: bold;
+    opacity: .5;
+   }
+  
 		</style>
 	</head>
 
@@ -722,19 +735,6 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 					<img style="border: none" width="30%" src="images/puzzle.svg" alt="puzzle"/>
 				</section>
 				<section>
-					<h2>0-60 in 4 pseudo lines</h2>
-<pre class="fragment"><code>mvn archetype:generate</code></pre>
-<pre class="fragment"><code>git init; git add *; git commit -m "Initial project"</code></pre>
-<pre class="fragment"><code>mvn -PautoInstallPackage install</code></pre>
-<pre class="fragment"><code>git add; git commit; git push</code></pre>
-				</section>
-			</section>
-
-			<section>
-				<section>
-					<h2>Where next?</h2>
-				</section>
-				<section>
 					<h2>Workflow</h2>
 					<p>FIXME more detail here</p>
 					<ul>
@@ -750,12 +750,33 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 					</ul>
 				</section>
 				<section>
+					<h2>0-60 in 4 pseudo lines</h2>
+<pre class="fragment"><code>mvn archetype:generate</code></pre>
+<pre class="fragment"><code>git init; git add *; git commit -m "Initial project"</code></pre>
+<pre class="fragment"><code>mvn -PautoInstallPackage install</code></pre>
+<pre class="fragment"><code>git add; git commit; git push</code></pre>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>Where next?</h2>
+				</section>
+				<section>
 					<h2>Continuous Integration</h2>
 					<ul>
 						<li><a href="http://jenkins-ci.org/">Jenkins</a> with <a href="https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin">Git plugin</a>, <a href="https://wiki.jenkins-ci.org/display/JENKINS/Github+Plugin">GitHub plugin</a></li>
 						<li><a href="http://www.seleniumhq.org/">Selenium</a> as a <a href="http://www.labelmedia.co.uk/blog/posts/setting-up-selenium-server-on-a-headless-jenkins-ci-build-machine.html">server</a></li>
 						<li><a href="http://cukes.info/">Cucumber</a> <a href="https://github.com/cucumber/cucumber-jvm#readme">for java</a> with <a href="https://github.com/masterthought/jenkins-cucumber-jvm-reports-plugin-java#readme">Jenkins plugin</a> and <a href="http://aslakhellesoy.com/post/20006051268/cucumber-jvm-1-0-0">tests in java</a></li>
 					</ul>
+				</section>
+				<section>
+					<h2>Integration Testing Framework</h2>
+					<p>... see Lydia's talk</p>
+				</section>
+				<section>
+					<h2>Deployment Testing</h2>
+					<p>... see Bertrand's talk</p>
 				</section>
 				<section>
 					<h2>Deployment profile</h2>
@@ -836,6 +857,29 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 				]
 
 			});
+
+ 
+   function currentSlideNumber(event) {
+    var formattedStr;
+    if (event.indexh === 0) {
+     return '';
+    }
+    formattedStr = event.indexh;
+    if (event.indexv) {
+     formattedStr += '/' + event.indexv;
+    }
+    return formattedStr;
+   }
+   // fires on slide change
+   Reveal.addEventListener('slidechanged', function(event) {
+    document.querySelector('.slide-number').innerText = currentSlideNumber(event);
+   });
+   //
+   var slideNumberDiv = document.createElement('div');
+   slideNumberDiv.classList.add('slide-number');
+   document.querySelector('.controls').appendChild(slideNumberDiv);
+  
+
 		</script>
 	</body>
 </html>
