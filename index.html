@@ -222,6 +222,10 @@
 					<p class="fragment">Standardised way to <em>share</em> a project</p>
 				</section>
 				<section>
+					<h2>Our target</h2>
+					<img style="border: none" src="images/flow_default.png" alt="Default flow" />
+				</section>
+				<section>
 					<p>Success criteria:</p>
 					<h2>It's EASY to build a CQ site!</h2>
 				</section>
@@ -302,7 +306,6 @@
 			<section data-state="maven">
 				<section>
 					<h2>Using Maven</h2>
-					<!-- FIXME something about reinventing wheels -->
 				</section>
 
 				<section>
@@ -313,7 +316,10 @@
 					</span>
 					<p class="fragment">... can sometimes feel like reinventing the wheel.</p>
 				</section>
-
+				<section>
+					<h2>You are here</h2>
+					<img style="border: none" src="images/flow_archetype.png" alt="Flow at archetype" />
+				</section>
 				<section>
 					<h2>Archetypes</h2>
 					<p><strong>archetype</strong> |ˈɑːkɪtʌɪp|<br />
@@ -409,8 +415,6 @@
 				<section>
 					<h2>Simple content package in action</h2>
 					<iframe width="853" height="480" src="http://www.youtube.com/embed/52UDO7thbvM?rel=0" frameborder="0" allowfullscreen></iframe>
-					<!-- <video data-autoplay src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"></video> -->
-					<!-- FIXME insert video -->
 				</section>
 				<section>
 					<h2>Simple content package parameters</h2>
@@ -418,16 +422,15 @@
 						<li><strong>groupId</strong>: Like a package name, e.g. com.yourcompany.myproject</li>
 						<li><strong>artifactId</strong>: name of the jar without the version, e.g. myproject</li>
 						<li><strong>version</strong>: accept the default</li>
-						<li><strong>package</strong>: not used in simple-content-package FIXME</li>
+						<li><strong>package</strong>: not used in simple-content-package</li>
 						<li><strong>appsFolderName</strong>: name of /apps/myproject, e.g. myproject</li>
-						<li><strong>artifactName</strong>: FIXME</li>
+						<li><strong>artifactName</strong>: Description in Package Manager</li>
 						<li><strong>packageGroup</strong>: Group in Package Manager</li>
 					</ul>
 					<p><br /><small>See also: <a href="http://maven.apache.org/guides/mini/guide-naming-conventions.html">Maven: Naming conventions</a></small></p>
 				</section>
 				<section>
 					<h2>Simple content package output</h2>
-					<!-- FIXME: more detail, or skip? -->
 					<ul>
 						<li>Template directories</li>
 						<li><code>pom.xml</code> file</li>
@@ -542,7 +545,6 @@
 			<section data-state="mint">
 				<section>
 					<h2>Using Git</h2>
-					<!-- FIXME something about reinventing wheels -->
 				</section>
 				<section>
 					<h2>Why Git?</h2>
@@ -552,6 +554,10 @@
 						<li>It's good to share</li>
 						<li>Enlightened self-interest</li>
 					</ul>
+				</section>
+				<section>
+					<h2>You are here</h2>
+					<img style="border: none" src="images/flow_git.png" alt="Flow at git" />
 				</section>
 				<section>
 					<h2>Git project setup</h2>
@@ -611,13 +617,17 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 				</section>
 
 				<section>
+					<h2>You are here</h2>
+					<img style="border: none" src="images/flow_build_deploy.png" alt="Flow at build and deploy" />
+				</section>
+
+				<section>
 					<img style="border: none" src="images/CMS_Borat_click_faster.png" alt="CMS Borat quote"/>
 					<aside class="notes">
 						If you're clicking the mouse you're doing it wrong.
 					</aside>
 				</section>
 
-					<!-- FIXME check package/bundle differences -->
 				<section>
 					<h2>Building</h2>
 					<img style="border: none" width="30%" src="images/build.svg" alt="build"/>
@@ -647,8 +657,16 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 					<p><br />cqblueprints: <code>mvn -Pauto-deploy install</code></p>
 				</section>
 				<section>
-					<h2>Managing the Repository</h2>
+					<h2>Developing</h2>
 					<img style="border: none" width="30%" src="images/2sync.svg" alt="sync"/>
+				</section>
+				<section>
+					<h2>You are here</h2>
+					<img style="border: none" src="images/flow_develop_sync.png" alt="Flow at developing and syncing" />
+				</section>
+				<section>
+					<p><img style="border: none" width="30%" src="images/question mark.svg" alt="question mark"/><br />
+					How do we <em>develop</em> in a world of maven builds and deploys and git saves?</p>
 				</section>
 				<section>
 					<h2>The FileVault tool</h2>
@@ -659,6 +677,22 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 					</ul>
 					<p><br /><small>See also: <a href="http://dev.day.com/docs/en/cq/current/core/how_to/how_to_use_the_vlttool.html">How to use the VLT Tool</a></small></p>
 				</section>
+				<section>
+					<h2>Sample development workflow</h2>
+					<ul>
+						<li>Use maven to build and deploy</li>
+						<li>Initialise <code>vlt</code></li>
+						<li>Create components, templates with CRXDE Lite</li>
+						<li>Use <code>vlt</code> to copy back into local filesystem</li>
+						<li>Change locally</li>
+						<li>Use <code>vlt</code> to copy back into the repository</li>
+						<li>Add to git</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Demo</h2>
+				</section>
+				<!--
 				<section>
 					<h2>Syncing</h2>
 					<img style="border: none" width="30%" src="images/3sync.svg" alt="sync"/>
@@ -684,80 +718,54 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 					<img style="border: none" width="30%" src="images/warning.svg" alt="Warning"/>
 					<p>The VLT Sync feature only supports simple files and folders but detects special vault serialized files (.content.xml, dialog.xml, etc) and ignores them silently. Thus it is possible to use vault sync on a default vlt checkout.</p>
 				</section>
+				-->
 				<section>
-					<h2>Safe VLT workflow</h2>
-					<ul>
-						<li>Use maven to create the project</li>
-						<li>Use vlt checkin/checkout</li>
-						<li><em>FIXME</em> worked examples here</li>
-					</ul>
+					<h2>Testing</h2>
+					<img style="border: none" width="30%" src="images/crash_test_dummy.svg" alt="crash test dummy"/>
+					<aside class="notes">
+						You have of course been writing tests during development.
+						Testing is a huge topic, so not covering here.
+						We'll only give a few pointers.
+					</aside>
 				</section>
-				<section>
-					<h2>Development</h2>
-					<p><em>FIXME</em> worked examples here</p>
-					<ul>
-						<li>Use maven to create and deploy</li>
-						<li>Use CRXDE Lite to develop components, templates etc.</li>
-						<li>Use vlt to sync back locally</li>
-						<li>Use git to share</li>
-					</ul>
-				</section>
-				<section>
-					<h2>Deploy</h2>
-					<p>Push to production ... workflows FIXME</p>
-				</section>
-				<section>
-					<h2>Test project</h2>
-					<p>FIXME</p>
-					<p>Prove it works on different platform. From scratch.</p>
-				</section>
-			</section>
 
-			<!-- BASIC EXAMPLE END-TO-END -->
-			<section data-state="whiteout">
 				<section>
-					<h2>Putting it all together</h2>
-					<img style="border: none" width="30%" src="images/puzzle.svg" alt="puzzle"/>
-				</section>
-				<section>
-					<h2>Workflow</h2>
-					<p>FIXME more detail here</p>
-					<ul>
-						<li>Project inception: generate with archetype</li>
-						<li>Put in git</li>
-						<li>Create components, templates with CRXDE Lite</li>
-						<li>Use vlt to sync back into local filesystem</li>
-						<li>Put in git</li>
-						<li>Use local filesystem to develop java/osgi bundles etc</li>
-						<li>Use maven to build and deploy</li>
-						<li>Put in git</li>
-						<li>Use a test framework to make sure it works (see next slide)</li>
-					</ul>
-				</section>
-				<section>
-					<h2>0-60 in 4 pseudo lines</h2>
-<pre class="fragment"><code>mvn archetype:generate</code></pre>
-<pre class="fragment"><code>git init; git add *; git commit -m "Initial project"</code></pre>
-<pre class="fragment"><code>mvn -PautoInstallPackage install</code></pre>
-<pre class="fragment"><code>git add; git commit; git push</code></pre>
-				</section>
-			</section>
-
-			<section>
-				<section>
-					<h2>Where next?</h2>
-				</section>
-				<section>
-					<h2>Continuous Integration</h2>
+					<h2>Continuous Integration?</h2>
 					<ul>
 						<li><a href="http://jenkins-ci.org/">Jenkins</a> with <a href="https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin">Git plugin</a>, <a href="https://wiki.jenkins-ci.org/display/JENKINS/Github+Plugin">GitHub plugin</a></li>
 						<li><a href="http://www.seleniumhq.org/">Selenium</a> as a <a href="http://www.labelmedia.co.uk/blog/posts/setting-up-selenium-server-on-a-headless-jenkins-ci-build-machine.html">server</a></li>
 						<li><a href="http://cukes.info/">Cucumber</a> <a href="https://github.com/cucumber/cucumber-jvm#readme">for java</a> with <a href="https://github.com/masterthought/jenkins-cucumber-jvm-reports-plugin-java#readme">Jenkins plugin</a> and <a href="http://aslakhellesoy.com/post/20006051268/cucumber-jvm-1-0-0">tests in java</a></li>
 					</ul>
 				</section>
+
 				<section>
-					<h2>Integration Testing Framework</h2>
-					<p>... see Lydia's talk</p>
+					<h2>Production</h2>
+					<img style="border: none" width="30%" src="images/factory.svg" alt="production"/>
+				</section>
+				<section>
+					<p><img style="border: none" width="30%" src="images/question mark.svg" alt="question mark"/><br />
+					How do we <em>move to production</em> in a world of maven builds and deploys and git saves?</p>
+				</section>
+				<section>
+					<h2>You are here</h2>
+					<img style="border: none" src="images/flow_production.png" alt="Flow at production" />
+				</section>
+				<!-- FIXME test this -->
+				<section>
+<pre>
+&lt;profile&gt;
+    &lt;id&gt;auto-deploy-prod&lt;/id&gt;
+        &lt;properties&gt;
+        &lt;cq.host&gt;server&lt;/cq.host&gt;
+        &lt;cq.port&gt;4502&lt;/cq.port&gt;
+        &lt;cq.user&gt;admin&lt;/cq.user&gt;
+        &lt;cq.password&gt;admin&lt;/cq.password&gt;
+        &lt;/properties&gt;
+&lt;/profile&gt;
+</pre>
+<pre>
+	mvn -Pauto-deploy-prod install
+</pre>
 				</section>
 				<section>
 					<h2>Deployment profile</h2>
@@ -779,6 +787,50 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 &lt;/profiles&gt;
 </pre>
 				</section>
+			</section>
+
+			<!-- BASIC EXAMPLE END-TO-END -->
+			<section data-state="whiteout">
+				<section>
+					<h2>Putting it all together</h2>
+					<img style="border: none" width="30%" src="images/puzzle.svg" alt="puzzle"/>
+				</section>
+				<section>
+					<h2>0-60 in 5 pseudo lines</h2>
+<pre class="fragment"><code>mvn archetype:generate</code></pre>
+<pre class="fragment"><code>git init; git add *; git commit -m "Initial project"</code></pre>
+<pre class="fragment"><code>mvn -PautoInstallPackage install</code></pre>
+<pre class="fragment"><code>vlt checkout ; vlt update ; vlt commit</code>
+<pre class="fragment"><code>git add; git commit; git push</code></pre>
+				</section>
+				<section>
+					<img style="border: none" src="images/flow_default.png" alt="flow"/>
+				</section>
+				<section>
+					<h2>Workflow</h2>
+					<ul>
+						<li>Project inception: generate with archetype</li>
+						<li>Put in git</li>
+						<li>Create components, templates with CRXDE Lite</li>
+						<li>Use vlt to keep in sync with local filesystem</li>
+						<li>Put in git</li>
+						<li>Use local filesystem to develop java/osgi bundles etc</li>
+						<li>Put in git</li>
+						<li>Use maven to build and deploy to test environment</li>
+						<li>Use a test framework to make sure it works (but see next slides)</li>
+						<li>Use maven to deploy to production (but see next slides)</li>
+					</ul>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>Where next?</h2>
+				</section>
+				<section>
+					<h2>Integration Testing Framework</h2>
+					<p>... see Lydia's talk</p>
+				</section>
 				<section>
 					<h2>Deployment Testing</h2>
 					<p>... see Bertrand's talk</p>
@@ -792,7 +844,7 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 				<section>
 					<h2>Credits</h2>
 
-					<ul>
+					<ul><small>
 						<li><a href="http://thenounproject.com/noun/light-bulb/#icon-No7582" target="_blank">Light Bulb</a> designed by <a href="http://thenounproject.com/Shane_kenna" target="_blank">Shane David Kenna</a> from The Noun Project</li>
 						<li><a href="http://thenounproject.com/noun/question/#icon-No2185" target="_blank">Question</a> designed by <a href="http://thenounproject.com/anasr" target="_blank">Anas Ramadan</a> from The Noun Project</li>
 						<li><a href="http://thenounproject.com/noun/hard-disk-drive/#icon-No15295" target="_blank">Hard Disk Drive</a> designed by <a href="http://thenounproject.com/Eddieative" target="_blank">Eddie Alshehri</a> from The Noun Project</li>
@@ -802,7 +854,9 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 						<li><a href="http://thenounproject.com/noun/cloud-upload/#icon-No2633" target="_blank">Cloud Upload</a> designed by <a href="http://thenounproject.com/adamwhitcroft" target="_blank">Adam Whitcroft</a> from The Noun Project</li>
 						<li><a href="http://thenounproject.com/noun/puzzle/#icon-No1201" target="_blank">Puzzle</a> designed by <a href="http://thenounproject.com/legologic" target="_blank">John O&#39;Shea</a> from The Noun Project</li>
 						<li><a href="http://thenounproject.com/noun/question/#icon-No2036" target="_blank">Question</a> designed by <a href="http://thenounproject.com/henryryder" target="_blank">Henry Ryder</a> from The Noun Project</li>
-					</ul>
+						<li><a href="http://thenounproject.com/noun/factory/#icon-No819" target="_blank">Factory</a> designed by <a href="http://thenounproject.com/a2015" target="_blank">Adrijan Karavdic</a> from The Noun Project</li>
+						<li><a href="http://thenounproject.com/noun/crash-test-dummy/#icon-No4954" target="_blank">Crash Test Dummy</a> designed by <a href="http://thenounproject.com/Luis" target="_blank">Luis Prado</a> from The Noun Project</li>
+					</small></ul>
 				</section>
 			</section>
 <!--
