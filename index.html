@@ -591,6 +591,9 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 <p><br /><small>See also: <a href="http://github.com/">github</a></small></p>
 				</section>
 				<section>
+					<h2>Demo</h2>
+				</section>
+				<section>
 					<h3>... time passes ...</h3>
 					<img style="border: none" width="30%" src="images/time.svg" alt="time"/>
 				</section>
@@ -609,16 +612,16 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 				<section>
 					<h2>(BEST) PRACTICE(S)</h2>
 				</section>
-				<section>
-
-					<blockquote cite="http://c2.com/cgi/wiki?LazinessImpatienceHubris">
-						&ldquo;the three great virtues of a programmer: laziness, impatience, and hubris&rdquo;
-					</blockquote>
-				</section>
 
 				<section>
 					<h2>You are here</h2>
 					<img style="border: none" src="images/flow_build_deploy.png" alt="Flow at build and deploy" />
+				</section>
+
+				<section>
+					<blockquote cite="http://c2.com/cgi/wiki?LazinessImpatienceHubris">
+						&ldquo;the three great virtues of a programmer: laziness, impatience, and hubris&rdquo;
+					</blockquote>
 				</section>
 
 				<section>
@@ -655,6 +658,9 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 					</ul>
 					<br />
 					<p><br />cqblueprints: <code>mvn -Pauto-deploy install</code></p>
+				</section>
+				<section>
+					<h2>Demo</h2>
 				</section>
 				<section>
 					<h2>Developing</h2>
@@ -739,6 +745,14 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 				</section>
 
 				<section>
+					<h2>Integration Testing Framework</h2>
+					<p>... see <a href="http://www.cqcon.eu/2013/en/speakers/lydia-balazs.html">Lydia's talk</a></p>
+					<aside class="notes">
+					... which introduces the Integration Testing Framework and shows how the integration testing is set up at Adobe in the Granite and CQ platform.
+					</aside>
+				</section>
+
+				<section>
 					<h2>Production</h2>
 					<img style="border: none" width="30%" src="images/factory.svg" alt="production"/>
 				</section>
@@ -750,42 +764,36 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 					<h2>You are here</h2>
 					<img style="border: none" src="images/flow_production.png" alt="Flow at production" />
 				</section>
-				<!-- FIXME test this -->
 				<section>
+					<h2>Maven profile for production</h2>
+					<ul>
+						<li>Add this to pom.xml:</li>
 <pre>
 &lt;profile&gt;
     &lt;id&gt;auto-deploy-prod&lt;/id&gt;
-        &lt;properties&gt;
-        &lt;cq.host&gt;server&lt;/cq.host&gt;
-        &lt;cq.port&gt;4502&lt;/cq.port&gt;
-        &lt;cq.user&gt;admin&lt;/cq.user&gt;
-        &lt;cq.password&gt;admin&lt;/cq.password&gt;
-        &lt;/properties&gt;
+    &lt;properties&gt;
+        &lt;crx.host&gt;production.server.hostname&lt;/crx.host&gt;
+        &lt;crx.port&gt;4502&lt;/crx.port&gt;
+    &lt;/properties&gt;
 &lt;/profile&gt;
 </pre>
+						<li>Deploy using this profile:</li>
 <pre>
-	mvn -Pauto-deploy-prod install
+	mvn -PautoInstallPackage,auto-deploy-prod install
 </pre>
+						<li>Or one-time override: <code>mvn -Dcrx.host=another.host,crx.port=4504 -PautoInstallPackage install</code></li>
+					</ul>
+					<p><br /><small>See also: <a href="http://maven.apache.org/guides/introduction/introduction-to-profiles.html">Introduction to build profiles</a></small></p>
+					<aside class="notes">
+						There are many ways to achieve this ...
+					</aside>
 				</section>
 				<section>
-					<h2>Deployment profile</h2>
-					<p>FIXME: need to find appropriate version for each archetype</p>
-<pre>
-&lt;profiles&gt;
-    &lt;!-- profile for deployment to shared development instance --&gt;
-    &lt;profile&gt;
-        &lt;id&gt;devDeploy&lt;/id&gt;
-        &lt;activation&gt;
-        &lt;/activation&gt;
-        &lt;properties&gt;
-            &lt;depl.user&gt;&lt;!-- {shared instance user} --&gt;&lt;/depl.user&gt;
-            &lt;depl.password&gt;&lt;!-- {shared instance password} --&gt;&lt;/depl.password&gt;
-            &lt;depl.host&gt;&lt;!-- {shared instance IP} --&gt;&lt;/depl.host&gt;
-            &lt;depl.port&gt;4502&lt;/depl.port&gt;
-        &lt;/properties&gt;
-    &lt;/profile&gt;
-&lt;/profiles&gt;
-</pre>
+					<h2>Deployment Testing</h2>
+					<p>... see <a href="http://www.cqcon.eu/2013/en/speakers/bertrand-delacretaz.html">Bertrand's talk</a></p>
+					<aside class="notes">
+						Auto-testing production CQ instances with Muppet
+					</aside>
 				</section>
 			</section>
 
@@ -800,12 +808,13 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 <pre class="fragment"><code>mvn archetype:generate</code></pre>
 <pre class="fragment"><code>git init; git add *; git commit -m "Initial project"</code></pre>
 <pre class="fragment"><code>mvn -PautoInstallPackage install</code></pre>
-<pre class="fragment"><code>vlt checkout ; vlt update ; vlt commit</code>
+<pre class="fragment"><code>vlt checkout ; vlt update ; vlt commit</code></pre>
 <pre class="fragment"><code>git add; git commit; git push</code></pre>
 				</section>
 				<section>
 					<img style="border: none" src="images/flow_default.png" alt="flow"/>
 				</section>
+				<!--
 				<section>
 					<h2>Workflow</h2>
 					<ul>
@@ -821,21 +830,9 @@ git <strong class="fragment highlight-red">hub-new-repo</strong>
 						<li>Use maven to deploy to production (but see next slides)</li>
 					</ul>
 				</section>
+				-->
 			</section>
 
-			<section>
-				<section>
-					<h2>Where next?</h2>
-				</section>
-				<section>
-					<h2>Integration Testing Framework</h2>
-					<p>... see Lydia's talk</p>
-				</section>
-				<section>
-					<h2>Deployment Testing</h2>
-					<p>... see Bertrand's talk</p>
-				</section>
-			</section>
 			<section data-state="sunset">
 				<section>
 					<img style="border: none" width="30%" src="images/question speech.svg" alt="questions?"/>
