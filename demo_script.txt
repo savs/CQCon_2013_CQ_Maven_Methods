@@ -1,0 +1,167 @@
+
+==== * simple-content DEMO
+
+mvn archetype:generate \
+-DarchetypeGroupId=com.day.jcr.vault \
+-DarchetypeArtifactId=simple-content-package-archetype \
+-DarchetypeVersion=1.0.0 \
+-DarchetypeRepository=adobe-public-releases
+
+    groupID: com.adobe.cqcon
+    artifactId: cqdemo
+    version: <return>
+    package: <return>
+    appsfoldername: cqdemo
+    artifactName: This is a demo app for CQCon
+    packagegroup: CQCon
+
+tree cqdemo
+clear; ls -R cqdemo
+
+
+
+==== * simple-content GIT DEMO
+
+https://github.com/savs?tab=repositories
+
+cd cqdemo
+git init
+nano .gitignore
+
+.classpath
+.project
+*.vlt
+.settings/
+target/
+
+git status
+git add * .gitignore
+git status
+git commit -m 'Initial commit of CQDemo from simple-content archetype'
+git hub-new-repo
+
+==== * simple-content INSTALL
+
+mvn -PautoInstallPackage install
+
+
+==== * simple-content VLT DEMO
+
+We have our archetype-generated project already
+
+cd src/main/content/jcr_root
+
+ls -R
+
+vlt --credentials admin:admin co --force http://localhost:4502/crx
+
+less apps/.content.xml
+
+git status
+git add * .content.xml
+
+git commit -m "Initialised vlt"
+
+Go to CRXDE
+    Make "components" folder
+        Create new component
+            Open component in CRXDE Lite, then close.
+
+vlt update
+
+git add *
+git commit -m "Added demo component"
+
+edit apps/cqdemo/components/demo/demo.jsp
+vlt commit
+
+git add *
+git commit -m "Fixed demo component comments"
+
+==== * simple content PRODUCTION DEMO
+
+
+        <profile>
+            <id>auto-deploy-prod</id>
+            <properties>
+                <crx.host>productionserver</crx.host>
+                <crx.port>4504</crx.port>
+            </properties>
+        </profile>
+
+mvn -PautoInstallPackage,auto-deploy-prod install
+
+
+
+== SPARE DEMOs
+
+* cqblueprints
+
+mvn -P cqblueprints archetype:generate \
+-DarchetypeGroupId=com.cqblueprints.archetypes \
+-DarchetypeArtifactId=multi-module \
+-DarchetypeVersion=1.0.5 \
+-DarchetypeRepository=cqblueprints.plugins.releases
+
+* BUILD AND INSTALL
+
+mvn -PautoInstallPackage install
+
+* SYNC
+
+cd src/main/content/jcr_root/
+vlt --credentials admin:admin co --force http://localhost:4502/crx
+vlt --credentials admin:admin sync --uri http://localhost:4502/crx install
+vlt sync register
+edit .vlt-sync-config.properties and set to sync-once=JCR2FS
+
+
+
+
+
+mvn archetype:generate \
+ -DarchetypeGroupId=com.adobe.granite.archetypes \
+ -DarchetypeArtifactId=sample-project-archetype \
+ -DarchetypeVersion=3 \
+ -DarchetypeRepository=adobe-public-releases
+
+mvn archetype:generate
+    -DarchetypeGroupId=com.day.jcr.vault
+    -DarchetypeArtifactId=simple-content-package-archetype
+    -DarchetypeVersion=1.0.1
+    -DarchetypeRepository=adobe-public-releases
+
+
+
+==== * multimodule-content WORKFLOW DEMO
+
+mvn -P adobe-public archetype:generate \
+-DarchetypeGroupId=com.day.jcr.vault \
+-DarchetypeArtifactId=multimodule-content-package-archetype \
+-DarchetypeVersion=1.0.0 \
+-DarchetypeRepository=adobe-public-releases
+
+    groupID: com.adobe.cqcon
+    artifactId: cqdemo
+    version: <return>
+    package: <return>
+    appsfoldername: cqdemo
+    artifactName: cqdemo
+    packagegroup: CQCon
+
+mvn -PautoInstallPackage install
+    cd content/src/main/content/jcr_root/
+
+ls -R
+vlt --credentials admin:admin co --force http://localhost:4502/crx
+
+Go to CRXDE
+    Make "components" folder
+        Create new component
+            Open component in CRXDE Lite, then close.
+
+vlt update
+
+edit apps/cqdemo/components/demo/demo.jsp
+
+vlt commit 
