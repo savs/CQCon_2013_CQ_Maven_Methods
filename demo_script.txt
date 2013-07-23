@@ -3,7 +3,7 @@
 
 mvn archetype:generate \
 -DarchetypeGroupId=com.day.jcr.vault \
--DarchetypeArtifactId=simple-content-package-archetype \
+-DarchetypeArtifactId=multimodule-content-package-archetype \
 -DarchetypeVersion=1.0.0 \
 -DarchetypeRepository=adobe-public-releases
 
